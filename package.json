@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node -r tsconfig-paths/register src/server.ts"
+    "express": "nodemon --exec ts-node -r tsconfig-paths/register server/server.ts"
   },
   "repository": {
     "type": "git",
