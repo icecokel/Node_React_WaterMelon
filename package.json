@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "express": "nodemon --exec ts-node -r tsconfig-paths/register server/server.ts"
+    "express": "nodemon --exec ts-node -r tsconfig-paths/register server/server.ts",
+    "react": "cd views && npm start",
+    "start": "concurrently \"npm run express\" \"npm run react\""
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
   },
   "dependencies": {
     "@types/node": "^16.7.1",
+    "concurrently": "^6.2.1",
     "express": "^4.17.1"
   }
 }
