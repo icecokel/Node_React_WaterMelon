@@ -9,7 +9,6 @@ import "./styles/component.scss";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Main from "./components/Main";
-import { config } from "yargs";
 
 const callAPI = async (props: { url: string; method: string; data: any }) => {
   const reg = /GET|POST|PUT|DELETE/gi;
