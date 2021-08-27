@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
@@ -37,6 +37,7 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
 
 const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
+
   return (
     <body>
       <Router>
@@ -62,7 +63,7 @@ const App = () => {
 
       {!isLogined && (
         <div className="modal">
-          <Login callAPI={callAPI} />
+          <Login callAPI={callAPI} setIsLogined={setIsLogined} />
         </div>
       )}
     </body>
