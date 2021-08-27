@@ -1,0 +1,114 @@
+body {
+  width: 100%;
+  margin: 10px auto;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  height: 50px;
+}
+
+section {
+  width: 100%;
+  flex: 1;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+
+.header_box {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 3%;
+}
+
+.main_box {
+  display: flex;
+  justify-content: space-around;
+  background-color: skyblue;
+  height: 100%;
+  padding: 10px;
+
+  div {
+    padding: 10px;
+  }
+
+  .chatList_box {
+    flex: 2;
+    background-color: slateblue;
+  }
+  .chat_box {
+    flex: 5;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .chat_target_box {
+      height: 5%;
+      text-align: center;
+      background-color: green;
+    }
+
+    .chat_content_box {
+      flex: 1;
+      background-color: white;
+    }
+    .chat_send_Message_box {
+      height: 7%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.login_box {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .box {
+    background-color: white;
+    width: 700px;
+    height: 400px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .image_box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .login_content {
+    background-color: #f0f2e7;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    .login_question {
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+}
