@@ -3,14 +3,14 @@ import { useEffect } from "react";
 const Main = (props: any) => {
   useEffect(() => {
     loginCheck();
-  }, []);
+  });
 
   const loginCheck = () => {
     const local = window.localStorage.getItem("accountInfo");
     const localData = local ? JSON.parse(local) : "";
     const permittedPeriod = localData.rememberDate + 86400 * 1000 * 30;
 
-    if (permittedPeriod <= Date.now()) {
+    if (permittedPeriod >= Date.now()) {
       window.sessionStorage.setItem("accountInfo", localData.email);
     }
     const session = window.sessionStorage.getItem("accountInfo");

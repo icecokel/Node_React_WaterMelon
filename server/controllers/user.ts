@@ -3,14 +3,18 @@ import { Router } from "express";
 const controller = Router();
 
 controller.post("/login", (req, res) => {
-  console.log(req.body);
+  console.info(req.body);
   if (req.body) {
-    res.send({ result: true });
+    res.send({
+      result: true,
+      email: "super@watermelon.com",
+      nickName: "SuperWaterMelon",
+    });
   }
 });
 
 controller.get("/logout", (req, res) => {
-  console.log(`Request : ${req}`);
+  console.info(`Request : ${req}`);
   res.send(`Request : ${req}`);
 });
 

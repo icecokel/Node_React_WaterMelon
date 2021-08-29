@@ -13,6 +13,7 @@ const Login = (props: any) => {
 
   const validationCheck = () => {
     const regEmail =
+      // eslint-disable-next-line no-useless-escape
       /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     return regEmail.test(formData.email) && !!formData.password;
   };
@@ -31,13 +32,24 @@ const Login = (props: any) => {
 
     if (res.result) {
       if (formData.remember) {
-        const settingData = {
+        const settingLocalData = {
           rememberDate: new Date().getTime(),
-          email: formData.email,
+          email: res.email,
         };
-        window.localStorage.setItem("accountInfo", JSON.stringify(settingData));
+        window.localStorage.setItem(
+          "accountInfo",
+          JSON.stringify(settingLocalData)
+        );
       }
-      window.sessionStorage.setItem("accountInfo", formData.email);
+      const settingSessionData = {
+        email: res.email,
+        nickName: res.nickName,
+      };
+
+      window.sessionStorage.setItem(
+        "accountInfo",
+        JSON.stringify(settingSessionData)
+      );
       props.setIsLogined(true);
     }
   };
@@ -49,20 +61,23 @@ const Login = (props: any) => {
         </div>
         <div className="login_content">
           <h2>로그인</h2>
-          <input
-            type="email"
-            value={formData.email}
-            onChange={(e) => {
-              setFormData({ ...formData, email: e.target.value });
-            }}
-          />
-          <input
-            type="password"
-            value={formData.password}
-            onChange={(e) => {
-              setFormData({ ...formData, password: e.target.value });
-            }}
-          />
+          <form>
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) => {
+                setFormData({ ...formData, email: e.target.value });
+              }}
+            />
+            <input
+              type="password"
+              value={formData.password}
+              autoComplete="off"
+              onChange={(e) => {
+                setFormData({ ...formData, password: e.target.value });
+              }}
+            />
+          </form>
           <div className="login_question">
             <label>
               <input

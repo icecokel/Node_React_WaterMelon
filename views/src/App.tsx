@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
@@ -39,9 +39,9 @@ const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
 
   return (
-    <body>
+    <main>
       <Router>
-        <Header />
+        <Header setIsLogined={setIsLogined} />
         <section>
           <article className="main">
             <Switch>
@@ -66,7 +66,7 @@ const App = () => {
           <Login callAPI={callAPI} setIsLogined={setIsLogined} />
         </div>
       )}
-    </body>
+    </main>
   );
 };
 
