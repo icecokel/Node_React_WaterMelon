@@ -11,11 +11,7 @@ import Login from "./components/Login";
 import Main from "./components/Main";
 
 const callAPI = async (props: { url: string; method: string; data: any }) => {
-  const reg = /GET|POST|PUT|DELETE/gi;
   let result: any = "";
-  if (!reg.test(props.method)) {
-    return;
-  }
 
   switch (props.method.toUpperCase()) {
     case "GET":
@@ -30,6 +26,9 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
     case "DELETE":
       result = await axios.delete(props.url, { params: props.data });
       break;
+
+    default:
+      result = { data: "You can only choose from GET, POST, PUT, DELETE." };
   }
 
   return result.data;

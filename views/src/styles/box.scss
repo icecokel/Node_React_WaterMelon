@@ -1,6 +1,6 @@
 main {
   width: 100%;
-  margin: 10px auto;
+  margin: 8px auto;
   height: 90vh;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,37 @@ section {
 .header_box {
   display: flex;
   justify-content: space-between;
-  padding: 0px 3%;
+
+  height: 10%;
+  margin-bottom: 8px;
+
+  .account_info_box {
+    text-align: center;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: black solid 1px;
+    font-size: 0.8rem;
+
+    span {
+      margin: 5% 0px;
+      width: 100%;
+    }
+
+    label {
+      padding: 3% 0px;
+      width: 100%;
+      cursor: pointer;
+      color: navy;
+    }
+
+    label:hover {
+      color: white;
+      background-color: skyblue;
+    }
+  }
 }
 
 .main_box {
@@ -95,6 +125,14 @@ section {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .login_question {
       width: 80%;
       display: flex;
