@@ -20,6 +20,7 @@
   "homepage": "https://github.com/icecokel/Node_React_WaterMelon#readme",
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/express-session": "^1.17.4",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "eslint": "^7.32.0",
@@ -31,6 +32,7 @@
   "dependencies": {
     "@types/node": "^16.7.1",
     "concurrently": "^6.2.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-session": "^1.17.2"
   }
 }

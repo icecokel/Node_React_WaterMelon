@@ -1,21 +1,19 @@
 import { useEffect } from "react";
 
 const Main = (props: any) => {
+  const callAPI: Function = props.callAPI;
+
   useEffect(() => {
     loginCheck();
   });
 
-  const loginCheck = () => {
-    const local = window.localStorage.getItem("accountInfo");
-    const localData = local ? JSON.parse(local) : "";
-    const permittedPeriod = localData.rememberDate + 86400 * 1000 * 30;
+  const loginCheck = async () => {
+    const res = await callAPI({
+      url: "/user/login",
+      method: "POST",
+    });
 
-    if (permittedPeriod >= Date.now()) {
-      window.sessionStorage.setItem("accountInfo", localData.email);
-    }
-    const session = window.sessionStorage.getItem("accountInfo");
-
-    !!session && props.setIsLogined(true);
+    props.setIsLogined(res.result);
   };
   return (
     <div className="main_box">

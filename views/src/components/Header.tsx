@@ -8,6 +8,7 @@ const defaultData = {
 };
 
 const Header = (props: any) => {
+  const callAPI: Function = props.callAPI;
   const [accountInfo, setAccountInfo] = useState<any>(defaultData.accountInfo);
 
   useEffect(() => {
@@ -15,10 +16,13 @@ const Header = (props: any) => {
     localData && setAccountInfo(JSON.parse(localData));
   }, []);
 
-  const onClickLogout = () => {
-    window.sessionStorage.removeItem("accountInfo");
-    window.localStorage.removeItem("accountInfo");
-    props.setIsLogined(false);
+  const onClickLogout = async () => {
+    const res = await callAPI({
+      url: "/user/logout",
+      method: "POST",
+    });
+
+    props.setIsLogined(!res.result);
   };
   return (
     <header className="header_box">
