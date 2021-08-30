@@ -30,28 +30,7 @@ const Login = (props: any) => {
       data: formData,
     });
 
-    if (res.result) {
-      if (formData.remember) {
-        const settingLocalData = {
-          rememberDate: new Date().getTime(),
-          email: res.email,
-        };
-        window.localStorage.setItem(
-          "accountInfo",
-          JSON.stringify(settingLocalData)
-        );
-      }
-      const settingSessionData = {
-        email: res.email,
-        nickName: res.nickName,
-      };
-
-      window.sessionStorage.setItem(
-        "accountInfo",
-        JSON.stringify(settingSessionData)
-      );
-      props.setIsLogined(true);
-    }
+    props.setIsLogined(res.result);
   };
   return (
     <article className="login_box">

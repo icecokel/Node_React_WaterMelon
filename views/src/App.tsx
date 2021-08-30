@@ -40,7 +40,7 @@ const App = () => {
   return (
     <main>
       <Router>
-        <Header setIsLogined={setIsLogined} />
+        <Header setIsLogined={setIsLogined} callAPI={callAPI} />
         <section>
           <article className="main">
             <Switch>
