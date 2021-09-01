@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
 
-const defaultData = {
-  accountInfo: {
-    email: "",
-    nickName: "",
-  },
-};
-
 const Header = (props: any) => {
   const callAPI: Function = props.callAPI;
-  const [accountInfo, setAccountInfo] = useState<any>(defaultData.accountInfo);
+  const [nickName, setNickName] = useState<string>("");
 
   useEffect(() => {
-    const localData = window.sessionStorage.getItem("accountInfo");
-    localData && setAccountInfo(JSON.parse(localData));
-  }, []);
+    getNickName();
+  });
+
+  const getNickName = () => {
+    const sessionSavedNickName = window.sessionStorage.getItem("nickName");
+    sessionSavedNickName && setNickName(sessionSavedNickName);
+  };
 
   const onClickLogout = async () => {
     const res = await callAPI({
@@ -22,14 +19,22 @@ const Header = (props: any) => {
       method: "POST",
     });
 
-    props.setIsLogined(!res.result);
+    window.sessionStorage.clear();
+    setNickName("");
+    props.setIsLogined(res.isLogined);
   };
   return (
     <header className="header_box">
       <div>Logo</div>
       <div className="account_info_box">
-        <span> {accountInfo.nickName}</span>
-        <label onClick={onClickLogout}>로그아웃</label>
+        {nickName ? (
+          <>
+            <span> {nickName}</span>
+            <label onClick={onClickLogout}>로그아웃</label>
+          </>
+        ) : (
+          <span> 로그인 해주세요.</span>
+        )}
       </div>
     </header>
   );

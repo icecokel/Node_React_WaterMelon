@@ -8,7 +8,7 @@ const Login = (props: any) => {
   const [formData, setFormData] = useState<any>({
     email: "",
     password: "",
-    remember: false,
+    isRemember: false,
   });
 
   const validationCheck = () => {
@@ -20,7 +20,7 @@ const Login = (props: any) => {
 
   const onClinkLogin = async () => {
     if (!validationCheck()) {
-      alert("Check Your Password And Email ...");
+      alert("계정정보를 확인 해 주세요.");
       return;
     }
 
@@ -30,58 +30,64 @@ const Login = (props: any) => {
       data: formData,
     });
 
-    props.setIsLogined(res.result);
+    window.sessionStorage.setItem("nickName", res.nickName);
+    props.setIsLogined(res.isLogined);
   };
   return (
-    <article className="login_box">
-      <div className="box">
-        <div className="image_box">
-          <img src={watermelon} alt="loginImg" className="login_big_img" />
-        </div>
-        <div className="login_content">
-          <h2>로그인</h2>
-          <form>
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) => {
-                setFormData({ ...formData, email: e.target.value });
-              }}
-            />
-            <input
-              type="password"
-              value={formData.password}
-              autoComplete="off"
-              onChange={(e) => {
-                setFormData({ ...formData, password: e.target.value });
-              }}
-            />
-          </form>
-          <div className="login_question">
-            <label>
+    <article className="modal">
+      <div className="login_box">
+        <div className="box">
+          <div className="image_box">
+            <img src={watermelon} alt="loginImg" className="login_big_img" />
+          </div>
+          <div className="login_content">
+            <h2>로그인</h2>
+            <form>
               <input
-                type="checkbox"
+                type="email"
+                value={formData.email}
                 onChange={(e) => {
-                  setFormData({ ...formData, remember: e.target.checked });
+                  setFormData({ ...formData, email: e.target.value });
                 }}
-              />{" "}
-              Remember?
-            </label>
+              />
+              <input
+                type="password"
+                value={formData.password}
+                autoComplete="off"
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    password: e.target.value,
+                  });
+                }}
+              />
+            </form>
+            <div className="login_question">
+              <label>
+                <input
+                  type="checkbox"
+                  onChange={(e) => {
+                    setFormData({ ...formData, isRemember: e.target.checked });
+                  }}
+                />
+                로그인 상태 유지
+              </label>
 
-            <label className="forget_password_lbl">Forgot Password</label>
-          </div>
-          <div>
-            <button className="login_regist_btn" onClick={onClinkLogin}>
-              로그인
-            </button>
-            <button className="login_regist_btn">가입하기</button>
-          </div>
-          <div>
-            <ul>
-              <li>구글 아이콘</li>
-              <li>네이버 아이콘</li>
-              <li>카카오 아이콘</li>
-            </ul>
+              <label className="forget_password_lbl">비밀번호 찾기</label>
+            </div>
+            <div>
+              <button className="login_regist_btn" onClick={onClinkLogin}>
+                로그인
+              </button>
+              <button className="login_regist_btn">가입하기</button>
+            </div>
+            <div>
+              <ul>
+                <li>구글 아이콘</li>
+                <li>네이버 아이콘</li>
+                <li>카카오 아이콘</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
