@@ -28,7 +28,9 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
       break;
 
     default:
-      result = { data: "You can only choose from GET, POST, PUT, DELETE." };
+      result = {
+        data: "메소드를 GET, POST, PUT, DELETE. 중 하라는 선택 하세요.",
+      };
   }
 
   return result.data;
@@ -56,15 +58,12 @@ const App = () => {
                 )}
               />
             </Switch>
+            {!isLogined && (
+              <Login callAPI={callAPI} setIsLogined={setIsLogined} />
+            )}
           </article>
         </section>
       </Router>
-
-      {!isLogined && (
-        <div className="modal">
-          <Login callAPI={callAPI} setIsLogined={setIsLogined} />
-        </div>
-      )}
     </main>
   );
 };

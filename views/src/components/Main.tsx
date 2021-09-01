@@ -5,15 +5,16 @@ const Main = (props: any) => {
 
   useEffect(() => {
     loginCheck();
-  });
+    // eslint-disable-next-line no-useless-escape
+  }, []);
 
   const loginCheck = async () => {
     const res = await callAPI({
-      url: "/user/login",
-      method: "POST",
+      url: "/user/check",
+      method: "GET",
     });
-
-    props.setIsLogined(res.result);
+    window.sessionStorage.setItem("nickName", res.nickName);
+    props.setIsLogined(res.isLogined);
   };
   return (
     <div className="main_box">
