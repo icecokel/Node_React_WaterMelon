@@ -1,10 +1,10 @@
 import { Router } from "express";
 import session from "express-session";
-import Properties from "server/Properties";
+import ServerConfig from "server/serverConfig";
 
 const controller = Router();
 
-controller.use(session(Properties.expressSession.option));
+controller.use(session(ServerConfig.expressSession.option));
 
 controller.post("/login", (req, res) => {
   console.info("POST :::: login");
@@ -18,7 +18,7 @@ controller.post("/login", (req, res) => {
       session.nickName = "SuperWaterMelon";
       session.isLogined = true;
       if (params.isRemember) {
-        session.cookie.maxAge = Properties.expressSession.cookie.maxAge;
+        session.cookie.maxAge = ServerConfig.expressSession.cookie.maxAge;
       }
 
       session.save(() => {
