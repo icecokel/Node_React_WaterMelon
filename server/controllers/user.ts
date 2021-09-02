@@ -4,7 +4,7 @@ import Properties from "server/Properties";
 
 const controller = Router();
 
-controller.use(session(Properties.expressSession));
+controller.use(session(Properties.expressSession.option));
 
 controller.post("/login", (req, res) => {
   console.info("POST :::: login");
@@ -18,8 +18,7 @@ controller.post("/login", (req, res) => {
       session.nickName = "SuperWaterMelon";
       session.isLogined = true;
       if (params.isRemember) {
-        // 로그인 상태 14일간 유지 해줌
-        session.cookie.maxAge = 14 * 24 * 60 * 60 * 1000;
+        session.cookie.maxAge = Properties.expressSession.cookie.maxAge;
       }
 
       session.save(() => {
