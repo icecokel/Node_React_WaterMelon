@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import FrontConfig from "../frontConfig";
 import moment from "moment";
 
 const Main = (props: any) => {
@@ -30,6 +31,18 @@ const ChatListBox = (props: any) => {
 };
 
 const ChatBox = (props: any) => {
+  const sendMessage = () => {
+    const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
+
+    webSocket.onopen = (e) => {
+      webSocket.send("232");
+    };
+
+    webSocket.onmessage = (e) => {
+      console.log(e);
+    };
+  };
+
   return (
     <div className="chat_box">
       채팅창
@@ -37,7 +50,9 @@ const ChatBox = (props: any) => {
       <div className="chat_content_box">대화내용</div>
       <div className="chat_send_Message_box">
         <input type="text" className="chat_send_Message" />
-        <button className="chat_send_btn"> 전송</button>
+        <button className="chat_send_btn" onClick={sendMessage}>
+          전송
+        </button>
       </div>
     </div>
   );
