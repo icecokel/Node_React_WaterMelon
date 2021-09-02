@@ -1,6 +1,6 @@
 import { Router } from "express";
 import session from "express-session";
-import Properties from "server/properties";
+import Properties from "server/Properties";
 
 const controller = Router();
 
