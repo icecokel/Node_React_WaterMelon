@@ -1,6 +1,7 @@
+import e from "express";
+import { useState } from "react";
 import { useEffect } from "react";
 import FrontConfig from "../frontConfig";
-import moment from "moment";
 
 const Main = (props: any) => {
   const callAPI: Function = props.callAPI;
@@ -20,36 +21,67 @@ const Main = (props: any) => {
   };
   return (
     <div className="main_box">
-      <ChatListBox />
+      <ChatTab />
       <ChatBox />
     </div>
   );
 };
 
-const ChatListBox = (props: any) => {
+const ChatTab = (props: any) => {
   return <div className="chatList_box">채팅방 목록</div>;
 };
 
+const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
+webSocket.onopen = (e) => {
+  console.info("Server Connected");
+};
+
 const ChatBox = (props: any) => {
+  const [message, setMessage] = useState<string>("");
+  const [receivedMessage, setReceivedMessage] = useState<Array<string>>([]);
+
+  useEffect(() => {}, [receivedMessage]);
+
+  webSocket.onmessage = (e) => {
+    const msgObj = JSON.parse(e.data);
+    const tempReceivedMessageList = receivedMessage ?? [];
+    tempReceivedMessageList.push(msgObj.message);
+
+    console.log(tempReceivedMessageList);
+
+    setReceivedMessage(tempReceivedMessageList);
+  };
+
   const sendMessage = () => {
-    const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
+    webSocket.send(message);
+    setMessage("");
+  };
 
-    webSocket.onopen = (e) => {
-      webSocket.send("232");
-    };
-
-    webSocket.onmessage = (e) => {
-      console.log(e);
-    };
+  const onPressEnter = (e: any) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
   };
 
   return (
     <div className="chat_box">
       채팅창
       <div className="chat_target_box">대상 닉네임</div>
-      <div className="chat_content_box">대화내용</div>
+      <div className="chat_content_box">
+        {receivedMessage.map((item) => {
+          return <div>{item}</div>;
+        })}
+      </div>
       <div className="chat_send_Message_box">
-        <input type="text" className="chat_send_Message" />
+        <input
+          type="text"
+          className="chat_send_Message"
+          value={message}
+          onKeyPress={onPressEnter}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        />
         <button className="chat_send_btn" onClick={sendMessage}>
           전송
         </button>

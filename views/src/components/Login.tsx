@@ -11,6 +11,12 @@ const Login = (props: any) => {
     isRemember: false,
   });
 
+  const onPressEnter = (e: any) => {
+    if (e.key === "Enter") {
+      onClinkLogin();
+    }
+  };
+
   const validationCheck = () => {
     const regEmail =
       // eslint-disable-next-line no-useless-escape
@@ -46,6 +52,7 @@ const Login = (props: any) => {
               <input
                 type="email"
                 value={formData.email}
+                onKeyPress={onPressEnter}
                 onChange={(e) => {
                   setFormData({ ...formData, email: e.target.value });
                 }}
@@ -54,6 +61,7 @@ const Login = (props: any) => {
                 type="password"
                 value={formData.password}
                 autoComplete="off"
+                onKeyPress={onPressEnter}
                 onChange={(e) => {
                   setFormData({
                     ...formData,
