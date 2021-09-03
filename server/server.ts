@@ -28,7 +28,9 @@ app.listen(ServerConfig.server.port, ServerConfig.server.console);
 wss.on("connection", (ws: WebSocket) => {
   ws.on("message", (message: string) => {
     console.info("received: %s", message);
-    ws.send(`Hello, you sent -> ${message}`);
+
+    const sendMsg = { message: message };
+    ws.send(JSON.stringify(sendMsg));
   });
 
   ws.send("Hi there, I am a WebSocket server");
