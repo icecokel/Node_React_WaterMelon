@@ -8,7 +8,7 @@ const Main = (props: any) => {
 
   useEffect(() => {
     loginCheck();
-    // eslint-disable-next-line no-useless-escape
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loginCheck = async () => {
@@ -28,6 +28,7 @@ const Main = (props: any) => {
 };
 
 const ChatTab = (props: any) => {
+  // TODO 방 목록 및 친구 목록 디자인.
   return <div className="chatList_box">채팅방 목록</div>;
 };
 
@@ -47,12 +48,12 @@ const ChatBox = (props: any) => {
     const tempReceivedMessageList = receivedMessage ?? [];
     tempReceivedMessageList.push(msgObj.message);
 
-    console.log(tempReceivedMessageList);
-
+    // TODO 렌더링 속도 개선
     setReceivedMessage(tempReceivedMessageList);
   };
 
   const sendMessage = () => {
+    // 메시지 및 Sender 추가
     webSocket.send(message);
     setMessage("");
   };

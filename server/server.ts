@@ -37,6 +37,5 @@ wss.on("connection", (ws: WebSocket) => {
 });
 
 server.listen(ServerConfig.webBocketServer.port, () => {
-  console.info("");
   console.info("WebSocket Server Open!!");
 });

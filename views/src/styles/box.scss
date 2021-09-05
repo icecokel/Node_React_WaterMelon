@@ -85,8 +85,10 @@ section {
     }
 
     .chat_content_box {
-      flex: 1;
+      height: 500px;
       background-color: white;
+      overflow-y: auto;
+      max-height: 500px;
     }
     .chat_send_Message_box {
       height: 7%;
