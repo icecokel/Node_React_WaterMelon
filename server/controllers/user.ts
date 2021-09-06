@@ -1,6 +1,16 @@
 import { Router } from "express";
 import session from "express-session";
 import ServerConfig from "server/serverConfig";
+import mysql from "mysql";
+
+const con = mysql.createConnection(ServerConfig.dataBase);
+
+con.connect((error) => {
+  if (error) {
+    console.error("DB Connection ERROR !!!!!!!!!");
+    console.error(error);
+  }
+});
 
 const controller = Router();
 
