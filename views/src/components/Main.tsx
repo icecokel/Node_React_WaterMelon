@@ -1,6 +1,4 @@
-import e from "express";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import FrontConfig from "../frontConfig";
 
 const Main = (props: any) => {
@@ -34,6 +32,7 @@ const ChatTab = (props: any) => {
 
 const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
 webSocket.onopen = (e) => {
+  console.log(e);
   console.info("Server Connected");
 };
 
@@ -45,7 +44,7 @@ const ChatBox = (props: any) => {
 
   webSocket.onmessage = (e) => {
     const msgObj = JSON.parse(e.data);
-    const tempReceivedMessageList = receivedMessage ?? [];
+    const tempReceivedMessageList = receivedMessage;
     tempReceivedMessageList.push(msgObj.message);
 
     // TODO 렌더링 속도 개선

@@ -8,17 +8,21 @@ import ServerConfig from "server/serverConfig";
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
-
 app.use(express.json());
 app.use("/user", UserController);
 
-app.get("/test", (req, res) => {
+app.get("/getApi", (req, res) => {
+  console.log(req.path);
   console.log(req.query);
-  res.send({ message: "success" });
+  const result = JSON.stringify({ path: req.path, query: req.query });
+  res.send(`GET :::` + result);
 });
 
-app.get("/", (req, res) => {
-  res.send("성공입니다 고생하셨어요!");
+app.post("/postApi", (req, res) => {
+  console.log(req.path);
+  console.log(req.body);
+
+  res.send("POST :" + JSON.stringify(req.body));
 });
 
 app.listen(ServerConfig.server.port, ServerConfig.server.console);
