@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Logo from "./Logo";
 const Header = (props: any) => {
   const callAPI: Function = props.callAPI;
   const [nickName, setNickName] = useState<string>("");
@@ -25,7 +25,7 @@ const Header = (props: any) => {
   };
   return (
     <header className="header_box">
-      <div>Logo</div>
+      <Logo gotoMain={true} />
       <div className="account_info_box">
         {nickName ? (
           <>
