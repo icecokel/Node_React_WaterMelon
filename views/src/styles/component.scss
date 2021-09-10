@@ -1,3 +1,5 @@
+@import "common.scss";
+
 button {
   cursor: pointer;
 }
@@ -54,4 +56,8 @@ input[type="checkbox"] {
 }
 .login_big_img {
   width: 100%;
+}
+
+.logo_img {
+  width: 15%;
 }
