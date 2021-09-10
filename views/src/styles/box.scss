@@ -1,3 +1,5 @@
+@import "common.scss";
+
 main {
   width: 100%;
   margin: 8px auto;
@@ -68,6 +70,7 @@ section {
   }
 
   .chatList_box {
+    font-family: "PretendardVariable";
     flex: 2;
     background-color: slateblue;
   }

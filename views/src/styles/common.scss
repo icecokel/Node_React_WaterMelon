@@ -1,0 +1,21 @@
+// Color Section
+$color1: #ed5b46;
+$color2: #f26671;
+$color3: #f28585;
+$color4: #feac97;
+$color5: #f8ced2;
+$color6: #f7dfe3;
+$color7: #f0f2e7;
+$color8: #c2d991;
+$color9: #84ac67;
+$color0: #688c1b;
+
+// Font Section
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: local("Pretendard Variable"),
+    url("./font/PretendardVariable.woff2") format("woff2-variations");
+}
