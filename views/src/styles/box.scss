@@ -61,7 +61,7 @@ section {
 .main_box {
   display: flex;
   justify-content: space-around;
-  background-color: skyblue;
+  background-color: $color9;
   height: 100%;
   padding: 10px;
 
@@ -72,11 +72,11 @@ section {
   .chatList_box {
     font-family: "PretendardVariable";
     flex: 2;
-    background-color: slateblue;
+    background-color: $color2;
   }
   .chat_box {
     flex: 5;
-    background-color: yellow;
+    background-color: $color4;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -84,7 +84,7 @@ section {
     .chat_target_box {
       height: 5%;
       text-align: center;
-      background-color: green;
+      background-color: $color3;
     }
 
     .chat_content_box {
@@ -110,7 +110,7 @@ section {
   align-items: center;
 
   .box {
-    background-color: white;
+    background-color: $colorWhite;
     width: 700px;
     height: 400px;
     padding: 10px;
@@ -124,7 +124,7 @@ section {
     justify-content: center;
   }
   .login_content {
-    background-color: #f0f2e7;
+    background-color: $color8;
     flex: 1;
     display: flex;
     flex-direction: column;
