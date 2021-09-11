@@ -3,8 +3,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
 
-import "./styles/box.scss";
-import "./styles/component.scss";
+import "./styles/style.scss";
 
 import Header from "./components/Header";
 import Login from "./components/Login";
