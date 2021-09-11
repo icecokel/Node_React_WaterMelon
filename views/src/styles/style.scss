@@ -155,3 +155,42 @@ section {
   z-index: 99;
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+// 정리 할 스타일
+
+.chat_send_Message {
+  flex: 1;
+  height: 20px;
+}
+
+.chat_send_btn {
+  width: 8%;
+  padding: 3px 5px;
+}
+
+.login_regist_btn {
+  margin: 0 10px;
+  padding: 3px 5px;
+  background-color: $color2;
+  color: $colorWhite;
+}
+.login_btn:hover {
+  color: $color2;
+  background-color: $colorWhite;
+}
+
+.forget_password_lbl {
+  cursor: pointer;
+  font-size: 1em;
+}
+.forget_password_lbl:hover {
+  color: blue;
+  font-size: 1.05em;
+}
+.login_big_img {
+  width: 100%;
+}
+
+.logo_img {
+  width: 15%;
+}
