@@ -9,9 +9,9 @@ $color7: #f0f2e7;
 $color8: #c2d991;
 $color9: #84ac67;
 $color0: #688c1b;
-$colorWhite: white;
+$colorWhite: #fff;
 $colorBlack: black;
-
+$colorPoint1: #900f23;
 // Font Section
 @font-face {
   font-family: "Pretendard Variable";
@@ -33,6 +33,7 @@ input[type="password"] {
   width: 80%;
   height: 20px;
   border: 0px;
+  margin: 5px 0;
 }
 
 input[type="text"] {
@@ -42,23 +43,29 @@ input[type="text"] {
 
 button {
   cursor: pointer;
-  color: $color6;
-  background-color: $color1;
+  color: $colorWhite;
+  background-color: $color9;
   border-radius: 5px;
   border: 0px;
 }
 
 button:hover {
-  color: $color1;
-  background-color: $color6;
+  color: $color9;
+  background-color: $colorWhite;
 }
 
 div {
   padding: 5px;
   border-radius: 5px;
+  border: $color7 1px solid;
 }
 
 label {
   padding: 5px;
   border-radius: 5px;
+}
+
+ul {
+  padding: 0px;
+  margin: 0px;
 }
