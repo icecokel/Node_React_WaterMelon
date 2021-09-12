@@ -13,15 +13,11 @@ $colorWhite: #fff;
 $colorBlack: black;
 $colorPoint1: #900f23;
 // Font Section
-@font-face {
-  font-family: "Pretendard Variable";
-  font-weight: 45 920;
-  font-style: normal;
-  font-display: swap;
-  src: local("Pretendard Variable"),
-    url("./font/PretendardVariable.woff2") format("woff2-variations");
-}
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap");
 
+#root {
+  font-family: "Gowun Batang", serif;
+}
 // Common Component
 input[type="checkbox"] {
   cursor: pointer;
@@ -47,6 +43,7 @@ button {
   background-color: $color9;
   border-radius: 5px;
   border: 0px;
+  font-family: "Gowun Batang", serif;
 }
 
 button:hover {
@@ -58,6 +55,7 @@ div {
   padding: 5px;
   border-radius: 5px;
   border: $color7 1px solid;
+  font-family: "Gowun Batang", serif;
 }
 
 label {

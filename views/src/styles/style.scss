@@ -1,11 +1,16 @@
 @import "common.scss";
 
+#root {
+  border: 0px;
+}
+
 main {
   width: 100%;
   margin: 8px auto;
   height: 90vh;
   display: flex;
   flex-direction: column;
+  border: 0px;
 }
 
 header {
@@ -39,7 +44,7 @@ section {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: black solid 1px;
+    border: $color1 solid 1px;
     font-size: 0.8rem;
 
     span {
@@ -56,8 +61,12 @@ section {
 
     label:hover {
       color: white;
-      background-color: skyblue;
+      background-color: $color8;
     }
+  }
+
+  .account_info_box:hover {
+    border: $color1 solid 2px;
   }
 }
 
@@ -76,6 +85,57 @@ section {
     font-family: "PretendardVariable";
     flex: 2;
     background-color: $colorWhite;
+    display: flex;
+    flex-direction: column;
+
+    .chatList_tab {
+      display: flex;
+      justify-content: space-between;
+      padding: 0px;
+      height: 40px;
+      label {
+        width: 45%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+      }
+
+      .friends_lbl {
+        border: $color3 solid 2px;
+      }
+      .friends_lbl:hover {
+        border: $color1 solid 3px;
+        background-color: $color3;
+        color: $colorWhite;
+      }
+
+      .room_lbl {
+        border: $color8 solid 2px;
+      }
+      .room_lbl:hover {
+        border: $color9 solid 3px;
+        background-color: $color8;
+        color: $colorWhite;
+      }
+    }
+
+    .chatList_contents {
+      flex: 1;
+      padding: 0px;
+      div {
+        height: 100%;
+        padding: 0px;
+      }
+
+      .chatList_friends {
+        border: $color3 solid 2.5px;
+      }
+
+      .chatList_room {
+        border: $color8 solid 2.5px;
+      }
+    }
   }
   .chat_box {
     flex: 5;
@@ -95,21 +155,27 @@ section {
       background-color: white;
       overflow-y: auto;
       max-height: 500px;
+
+      div {
+        border: 0px;
+      }
     }
     .chat_send_Message_box {
       border: 0px;
       height: 7%;
+      padding: 3px 0px;
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 100%;
 
-      .chat_send_Message {
+      input[type="text"] {
         flex: 1;
         height: 30px;
         margin: auto 2px;
       }
 
-      .chat_send_btn {
+      button {
         margin: auto 2px;
         width: 8%;
         height: 30px;
@@ -208,6 +274,9 @@ section {
 .logo_box {
   img {
     width: 15%;
+  }
+  label {
+    cursor: pointer;
   }
 }
 
