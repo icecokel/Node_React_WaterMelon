@@ -12,20 +12,44 @@ $color0: #688c1b;
 $colorWhite: #fff;
 $colorBlack: black;
 $colorPoint1: #900f23;
+
+// Size Section
+$borderRadius: 5px;
+
 // Font Section
 @import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap");
 
+// Common Component
 #root {
   font-family: "Gowun Batang", serif;
+  border: 0px;
 }
-// Common Component
+
+main {
+  width: 100%;
+  margin: 8px auto;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  border: 0px;
+}
+
+header {
+  height: 50px;
+}
+
+section {
+  width: 100%;
+  flex: 1;
+}
+
 input[type="checkbox"] {
   cursor: pointer;
 }
 
 input[type="email"],
 input[type="password"] {
-  border-radius: 5px;
+  border-radius: $borderRadius;
   width: 80%;
   height: 20px;
   border: 0px;
@@ -33,7 +57,7 @@ input[type="password"] {
 }
 
 input[type="text"] {
-  border-radius: 5px;
+  border-radius: $borderRadius;
   border: 0px;
 }
 
@@ -41,7 +65,7 @@ button {
   cursor: pointer;
   color: $colorWhite;
   background-color: $color9;
-  border-radius: 5px;
+  border-radius: $borderRadius;
   border: 0px;
   font-family: "Gowun Batang", serif;
 }
@@ -53,14 +77,14 @@ button:hover {
 
 div {
   padding: 5px;
-  border-radius: 5px;
+  border-radius: $borderRadius;
   border: $color7 1px solid;
   font-family: "Gowun Batang", serif;
 }
 
 label {
   padding: 5px;
-  border-radius: 5px;
+  border-radius: $borderRadius;
 }
 
 ul {
