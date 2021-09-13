@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import FrontConfig from "../frontConfig";
+
+export enum TabMode {
+  FRIENDS = 0,
+  ROOM = 1,
+}
 
 const Main = (props: any) => {
   const callAPI: Function = props.callAPI;
@@ -26,8 +32,51 @@ const Main = (props: any) => {
 };
 
 const ChatTab = (props: any) => {
+  const [mode, setMode] = useState<number>(TabMode.FRIENDS);
+
+  const onClickTab = (props: number) => {
+    setMode(props);
+  };
+
   // TODO 방 목록 및 친구 목록 디자인.
-  return <div className="chatList_box">채팅방 목록</div>;
+  return (
+    <div className="chatList_box">
+      <div className="chatList_tab">
+        <label
+          style={
+            mode === TabMode.FRIENDS
+              ? { backgroundColor: "#f28585", color: "#FFFFFF" }
+              : {}
+          }
+          className="friends_lbl"
+          onClick={() => {
+            onClickTab(TabMode.FRIENDS);
+          }}
+        >
+          친구목록
+        </label>
+        <label
+          style={
+            mode === TabMode.ROOM
+              ? { backgroundColor: "#c2d991", color: "#FFFFFF" }
+              : {}
+          }
+          className="room_lbl"
+          onClick={() => {
+            onClickTab(TabMode.ROOM);
+          }}
+        >
+          대화방
+        </label>
+      </div>
+      <div className="chatList_contents">
+        {mode === TabMode.FRIENDS && (
+          <div className="chatList_friends">adad</div>
+        )}
+        {mode === TabMode.ROOM && <div className="chatList_room">dfdf</div>}
+      </div>
+    </div>
+  );
 };
 
 const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
@@ -75,16 +124,13 @@ const ChatBox = (props: any) => {
       <div className="chat_send_Message_box">
         <input
           type="text"
-          className="chat_send_Message"
           value={message}
           onKeyPress={onPressEnter}
           onChange={(e) => {
             setMessage(e.target.value);
           }}
         />
-        <button className="chat_send_btn" onClick={sendMessage}>
-          전송
-        </button>
+        <button onClick={sendMessage}>전송</button>
       </div>
     </div>
   );
