@@ -68,11 +68,11 @@ button {
   border-radius: $borderRadius;
   border: 0px;
   font-family: "Gowun Batang", serif;
-}
 
-button:hover {
-  color: $color9;
-  background-color: $colorWhite;
+  &:hover {
+    color: $color9;
+    background-color: $colorWhite;
+  }
 }
 
 div {
