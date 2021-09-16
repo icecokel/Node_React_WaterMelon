@@ -14,3 +14,5 @@ nickname VARCHAR(30) NOT NULL COMMENT '별명',
 profile_image VARCHAR(50) COMMENT '로그인 여부',
 del_yn VARCHAR(1) CHECK(del_yn IN ('Y','N')) DEFAULT 'N' COMMENT '삭제 여부'
 )DEFAULT CHARSET = utf8;
+
+DESC USERS;
