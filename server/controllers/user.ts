@@ -1,20 +1,21 @@
 import { Router } from "express";
 import session from "express-session";
 import ServerConfig from "server/serverConfig";
-import mysql from "mysql";
-
-const con = mysql.createConnection(ServerConfig.dataBase);
-
-con.connect((error) => {
-  if (error) {
-    console.error("DB Connection ERROR !!!!!!!!!");
-    console.error(error);
-  }
-});
-
+import db from "../db";
 const controller = Router();
 
 controller.use(session(ServerConfig.expressSession.option));
+
+controller.get("/test", (req, res) => {
+  db.query("SELECT * FROM USERS", (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(data);
+  });
+
+  db.end();
+});
 
 controller.post("/login", (req, res) => {
   console.info("POST :::: login");
