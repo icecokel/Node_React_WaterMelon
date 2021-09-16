@@ -6,7 +6,7 @@ INSERT INTO USERS (
 	, sns
 	, nickname 
 ) VALUES (
-	'asd@asd.com'
+	'ice@coke.com'
 	,'asd'
 	,'1'
 	,'관리자'
