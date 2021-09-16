@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 const Header = (props: any) => {
   const callAPI: Function = props.callAPI;
-  const [nickName, setNickName] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
 
   useEffect(() => {
-    getNickName();
+    getNickname();
   });
 
-  const getNickName = () => {
-    const sessionSavedNickName = window.sessionStorage.getItem("nickName");
-    sessionSavedNickName && setNickName(sessionSavedNickName);
+  const getNickname = () => {
+    const sessionSavedNickname = window.sessionStorage.getItem("nickname");
+    sessionSavedNickname && setNickname(sessionSavedNickname);
   };
 
   const onClickLogout = async () => {
@@ -20,16 +20,16 @@ const Header = (props: any) => {
     });
 
     window.sessionStorage.clear();
-    setNickName("");
+    setNickname("");
     props.setIsLogined(res.isLogined);
   };
   return (
     <header className="header_box">
       <Logo gotoMain={true} />
       <div className="account_info_box">
-        {nickName ? (
+        {nickname ? (
           <>
-            <span> {nickName}</span>
+            <span> {nickname}</span>
             <label onClick={onClickLogout}>로그아웃</label>
           </>
         ) : (

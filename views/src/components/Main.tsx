@@ -20,7 +20,7 @@ const Main = (props: any) => {
       url: "/user/check",
       method: "GET",
     });
-    window.sessionStorage.setItem("nickName", res.nickName);
+    window.sessionStorage.setItem("nickname", res.nickname);
     props.setIsLogined(res.isLogined);
   };
   return (
