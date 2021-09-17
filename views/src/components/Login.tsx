@@ -56,8 +56,12 @@ const Login = (props: any) => {
       data: formData,
     });
 
-    window.sessionStorage.setItem("nickName", res.nickName);
-    props.setIsLogined(res.isLogined);
+    if (res.error) {
+      alert("계정정보를 확인 해 주세요.");
+    } else {
+      window.sessionStorage.setItem("nickname", res.nickname);
+      props.setIsLogined(res.isLogined);
+    }
   };
   return (
     <article className="modal">
