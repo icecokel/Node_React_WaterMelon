@@ -6,8 +6,9 @@ const controller = Router();
 
 controller.use(session(ServerConfig.expressSession.option));
 
-controller.get("/test", (req, res) => {
-  db.query("SELECT * FROM USERS", (err, data) => {
+controller.post("/test", (req, res) => {
+  const sql = `SELECT * FROM USERS WHERE email ="${req.body.email}"`;
+  db.query(sql, (err, data) => {
     if (err) {
       console.log(err);
     }
@@ -23,22 +24,37 @@ controller.post("/login", (req, res) => {
   const session = req.session;
   const params = req.body.params;
 
-  if (req.body.params) {
-    if (!req.session.isLogined) {
-      session.email = req.body.params.email;
-      session.nickName = "SuperWaterMelon";
-      session.isLogined = true;
-      if (params.isRemember) {
-        session.cookie.maxAge = ServerConfig.expressSession.cookie.maxAge;
-      }
+  if (params) {
+    const sql = `SELECT * FROM USERS WHERE email ="${params.email}"`;
 
-      session.save(() => {
-        res.send({
-          isLogined: session.isLogined,
-          nickName: session.nickName,
-        });
-      });
-    }
+    db.query(sql, (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      const result = data[0];
+      if (result) {
+        if (result.password === params.password) {
+          if (!req.session.isLogined) {
+            session.email = result.email;
+            session.isLogined = true;
+            if (params.isRemember) {
+              session.cookie.maxAge = ServerConfig.expressSession.cookie.maxAge;
+            }
+
+            session.save(() => {
+              res.send({
+                isLogined: session.isLogined,
+                nickname: result.nickname,
+              });
+            });
+          } else {
+            res.send({ isLogined: req.session.isLogined });
+          }
+        }
+      } else {
+        res.send({ error: "A0001" });
+      }
+    });
   }
 });
 
@@ -55,7 +71,7 @@ controller.get("/check", (req, res) => {
   console.log("GET :::: check");
   res.send({
     isLogined: req.session.isLogined,
-    nickName: req.session.nickName,
+    nickname: req.session.nickname,
   });
 });
 
