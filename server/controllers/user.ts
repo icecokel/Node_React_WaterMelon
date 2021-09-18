@@ -32,8 +32,9 @@ controller.post("/login", (req, res) => {
         console.log(err);
       }
       const result = data[0];
+
       if (result) {
-        if (result.password === params.password) {
+        if (result.password === params.password && result.del_yn === "N") {
           if (!req.session.isLogined) {
             session.email = result.email;
             session.isLogined = true;

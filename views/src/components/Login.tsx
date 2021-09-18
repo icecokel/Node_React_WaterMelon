@@ -4,7 +4,6 @@ import watermelon from "../styles/images/watermelon01.jpg";
 import google from "../styles/images/google_icon.png";
 import kakao from "../styles/images/kakao_icon.png";
 import naver from "../styles/images/naver_icon.png";
-import { NOTFOUND } from "dns";
 
 const Login = (props: any) => {
   const callAPI: Function = props.callAPI;
