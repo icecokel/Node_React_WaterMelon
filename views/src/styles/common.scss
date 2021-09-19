@@ -15,6 +15,7 @@ $colorPoint1: #900f23;
 
 // Size Section
 $borderRadius: 5px;
+$minWidth: 1300px;
 
 // Font Section
 @import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap");
@@ -90,4 +91,11 @@ label {
 ul {
   padding: 0px;
   margin: 0px;
+}
+
+@media screen and (min-width: $minWidth) {
+  #root {
+    width: $minWidth;
+    margin: 0 auto;
+  }
 }
