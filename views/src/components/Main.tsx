@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import FrontConfig from "../frontConfig";
-import Login from "./Login";
+import ChatRoom from "./ChatRoom";
 
 export enum TabMode {
   FRIENDS = 0,
@@ -10,6 +9,11 @@ export enum TabMode {
 
 const Main = (props: any) => {
   const callAPI: Function = props.callAPI;
+
+  const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
+  webSocket.onopen = (e) => {
+    console.info("Server Connected");
+  };
 
   useEffect(() => {
     loginCheck();
@@ -26,8 +30,8 @@ const Main = (props: any) => {
   };
   return (
     <div className="main_box">
-      <ChatTab />
-      <ChatBox key="chatbox_1" />
+      <ChatTab key="chatTab_1" />
+      <ChatRoom key="chatbox_1" webSocket={webSocket} />
     </div>
   );
 };
@@ -35,11 +39,6 @@ const Main = (props: any) => {
 const ChatTab = (props: any) => {
   const [mode, setMode] = useState<number>(TabMode.FRIENDS);
 
-  const onClickTab = (props: number) => {
-    setMode(props);
-  };
-
-  // TODO 방 목록 및 친구 목록 디자인.
   return (
     <div className="chatList_box">
       <div className="chatList_tab">
@@ -51,7 +50,7 @@ const ChatTab = (props: any) => {
           }
           className="friends_lbl"
           onClick={() => {
-            onClickTab(TabMode.FRIENDS);
+            setMode(TabMode.FRIENDS);
           }}
         >
           친구목록
@@ -64,7 +63,7 @@ const ChatTab = (props: any) => {
           }
           className="room_lbl"
           onClick={() => {
-            onClickTab(TabMode.ROOM);
+            setMode(TabMode.ROOM);
           }}
         >
           대화방
@@ -75,74 +74,6 @@ const ChatTab = (props: any) => {
           <div className="chatList_friends">adad</div>
         )}
         {mode === TabMode.ROOM && <div className="chatList_room">dfdf</div>}
-      </div>
-    </div>
-  );
-};
-
-const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
-webSocket.onopen = (e) => {
-  console.log(e);
-  console.info("Server Connected");
-};
-
-const ChatBox = (props: any) => {
-  const [receivedMessage, setReceivedMessage] = useState<Array<any>>([]);
-  const [message, setMessage] = useState<string>("");
-  const nickname = window.sessionStorage.getItem("nickname");
-
-  webSocket.onmessage = (e) => {
-    const msgObj = JSON.parse(e.data);
-    const tempReceivedMessageList = receivedMessage;
-    tempReceivedMessageList.push(JSON.parse(msgObj.message));
-    // TODO 렌더링 속도 개선
-    setReceivedMessage(tempReceivedMessageList);
-  };
-
-  const sendMessage = () => {
-    // 메시지 및 Sender 추가
-
-    const params = { nickname: nickname, message: message };
-
-    webSocket.send(JSON.stringify(params));
-    setMessage("");
-  };
-
-  const onPressEnter = (e: any) => {
-    if (e.key === "Enter") {
-      sendMessage();
-    }
-  };
-
-  useEffect(() => {}, [receivedMessage]);
-
-  return (
-    <div className="chat_box">
-      채팅창
-      <div className="chat_target_box">대상 닉네임</div>
-      <ul className="chat_content_box">
-        {receivedMessage.map((item, idex) => {
-          if (idex + 1 === receivedMessage.length) {
-            console.log(item);
-          }
-          return (
-            <>
-              <li key={idex}>{item.message}</li>
-              {console.log(receivedMessage)}
-            </>
-          );
-        })}
-      </ul>
-      <div className="chat_send_Message_box">
-        <input
-          type="text"
-          value={message}
-          onKeyPress={onPressEnter}
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
-        />
-        <button onClick={sendMessage}>전송</button>
       </div>
     </div>
   );
