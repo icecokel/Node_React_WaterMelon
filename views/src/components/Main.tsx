@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import FrontConfig from "../frontConfig";
+import Login from "./Login";
 
 export enum TabMode {
   FRIENDS = 0,
@@ -26,7 +27,7 @@ const Main = (props: any) => {
   return (
     <div className="main_box">
       <ChatTab />
-      <ChatBox />
+      <ChatBox key="chatbox_1" />
     </div>
   );
 };
@@ -86,23 +87,24 @@ webSocket.onopen = (e) => {
 };
 
 const ChatBox = (props: any) => {
+  const [receivedMessage, setReceivedMessage] = useState<Array<any>>([]);
   const [message, setMessage] = useState<string>("");
-  const [receivedMessage, setReceivedMessage] = useState<Array<string>>([]);
-
-  useEffect(() => {}, [receivedMessage]);
+  const nickname = window.sessionStorage.getItem("nickname");
 
   webSocket.onmessage = (e) => {
     const msgObj = JSON.parse(e.data);
     const tempReceivedMessageList = receivedMessage;
-    tempReceivedMessageList.push(msgObj.message);
-
+    tempReceivedMessageList.push(JSON.parse(msgObj.message));
     // TODO 렌더링 속도 개선
     setReceivedMessage(tempReceivedMessageList);
   };
 
   const sendMessage = () => {
     // 메시지 및 Sender 추가
-    webSocket.send(message);
+
+    const params = { nickname: nickname, message: message };
+
+    webSocket.send(JSON.stringify(params));
     setMessage("");
   };
 
@@ -112,15 +114,25 @@ const ChatBox = (props: any) => {
     }
   };
 
+  useEffect(() => {}, [receivedMessage]);
+
   return (
     <div className="chat_box">
       채팅창
       <div className="chat_target_box">대상 닉네임</div>
-      <div className="chat_content_box">
-        {receivedMessage.map((item) => {
-          return <div>{item}</div>;
+      <ul className="chat_content_box">
+        {receivedMessage.map((item, idex) => {
+          if (idex + 1 === receivedMessage.length) {
+            console.log(item);
+          }
+          return (
+            <>
+              <li key={idex}>{item.message}</li>
+              {console.log(receivedMessage)}
+            </>
+          );
         })}
-      </div>
+      </ul>
       <div className="chat_send_Message_box">
         <input
           type="text"
