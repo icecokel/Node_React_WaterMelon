@@ -38,6 +38,7 @@ controller.post("/login", (req, res) => {
           if (!req.session.isLogined) {
             session.email = result.email;
             session.isLogined = true;
+            session.nickname = result.nickname;
             if (params.isRemember) {
               session.cookie.maxAge = ServerConfig.expressSession.cookie.maxAge;
             }
@@ -70,6 +71,7 @@ controller.post("/logout", (req, res) => {
 
 controller.get("/check", (req, res) => {
   console.log("GET :::: check");
+
   res.send({
     isLogined: req.session.isLogined,
     nickname: req.session.nickname,
