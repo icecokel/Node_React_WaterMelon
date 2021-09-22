@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const ChatRoom = (props: any) => {
   const [receivedMessage, setReceivedMessage] = useState<Array<any>>([]);
