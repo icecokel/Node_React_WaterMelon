@@ -28,7 +28,7 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
 
     default:
       result = {
-        data: "메소드를 GET, POST, PUT, DELETE. 중 하라는 선택 하세요.",
+        data: "메소드를 GET, POST, PUT, DELETE. 중 하나를 선택 하세요.",
       };
   }
 

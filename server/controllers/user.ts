@@ -34,7 +34,7 @@ controller.post("/login", (req, res) => {
       const result = data[0];
 
       if (result) {
-        if (result.password === params.password && result.del_yn === "N") {
+        if (result.user_passwd === params.password && result.del_yn === "N") {
           if (!req.session.isLogined) {
             session.email = result.email;
             session.isLogined = true;
@@ -42,7 +42,6 @@ controller.post("/login", (req, res) => {
             if (params.isRemember) {
               session.cookie.maxAge = ServerConfig.expressSession.cookie.maxAge;
             }
-
             session.save(() => {
               res.send({
                 isLogined: session.isLogined,
@@ -52,9 +51,9 @@ controller.post("/login", (req, res) => {
           } else {
             res.send({ isLogined: req.session.isLogined });
           }
+        } else {
+          res.send({ error: "A0001" });
         }
-      } else {
-        res.send({ error: "A0001" });
       }
     });
   }
