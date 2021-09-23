@@ -2,7 +2,7 @@
 
 INSERT INTO USERS (
 	email 
-	, PASSWORD 
+	, user_passwd 
 	, sns
 	, nickname 
 ) VALUES (
@@ -14,7 +14,7 @@ INSERT INTO USERS (
 
 INSERT INTO USERS (
 	email 
-	, PASSWORD 
+	, user_passwd 
 	, sns
 	, nickname 
 ) VALUES (
