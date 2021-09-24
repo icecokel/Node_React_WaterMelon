@@ -6,12 +6,12 @@ const ChatRoom = (props: any) => {
   const nickname = window.sessionStorage.getItem("nickname");
   const webSocket = props.webSocket;
 
-  webSocket.onmessage = (e: any) => {
+  webSocket.addEventListener("message", (e: any) => {
     const msgObj = JSON.parse(e.data);
     const tempReceivedMessageList = [...receivedMessage];
     tempReceivedMessageList.push(JSON.parse(msgObj.message));
     setReceivedMessage(tempReceivedMessageList);
-  };
+  });
 
   const sendMessage = () => {
     const params = { nickname: nickname, message: message };
