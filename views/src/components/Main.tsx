@@ -11,13 +11,13 @@ const Main = (props: any) => {
   const callAPI: Function = props.callAPI;
 
   const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
-  webSocket.addEventListener("open", () => {
+  webSocket.onopen = (e) => {
     console.info("Server Connected");
-  });
+  };
 
-  // webSocket.addEventListener("message")
-  // webSocket.addEventListener("error")
-  // webSocket.addEventListener("close")
+  webSocket.onclose = (e) => {
+    console.info("Server Closed");
+  };
 
   useEffect(() => {
     loginCheck();
