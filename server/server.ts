@@ -4,6 +4,7 @@ import http from "http";
 
 import UserController from "./controllers/user";
 import ServerConfig from "server/serverConfig";
+import chatServer from "./chatServer";
 
 const app = express();
 const server = http.createServer(app);
@@ -30,11 +31,7 @@ app.listen(ServerConfig.server.port, ServerConfig.server.console);
 // 웹소켓 서버 열기
 
 wss.on("connection", (ws: WebSocket) => {
-  ws.on("message", (message: string) => {
-    console.info("received: %s", message);
-    const sendMsg = { message: message };
-    ws.send(JSON.stringify(sendMsg));
-  });
+  chatServer.onMessage(ws);
 });
 
 server.listen(ServerConfig.webBocketServer.port, () => {
