@@ -34,6 +34,9 @@ wss.on("connection", (ws: WebSocket) => {
   chatServer.onMessage(ws);
 });
 
+wss.on("close", (ws: WebSocket) => {
+  ws.send("Bye!!");
+});
 server.listen(ServerConfig.webBocketServer.port, () => {
   console.info("WebSocket Server Open!!");
 });

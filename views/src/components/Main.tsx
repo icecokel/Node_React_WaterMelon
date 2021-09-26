@@ -16,7 +16,10 @@ const Main = (props: any) => {
   };
 
   webSocket.onclose = (e) => {
-    console.info("Server Closed");
+    alert("Server Closed");
+    webSocket.onopen = (e) => {
+      console.info("Server Connected");
+    };
   };
 
   useEffect(() => {
