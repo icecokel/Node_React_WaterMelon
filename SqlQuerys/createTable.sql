@@ -20,14 +20,16 @@ del_yn VARCHAR(1) CHECK(del_yn IN ('Y','N')) DEFAULT 'N' COMMENT '삭제 여부'
 )DEFAULT CHARSET = utf8;
 
 CREATE TABLE ROOMS (
-room_id INT(200) NOT NULL AUTO_INCREMENT COMMENT '채팅방 코드',
+room_id INT(100) PRIMARY KEY AUTO_INCREMENT COMMENT '채팅방 코드',
 user_id INT(100) NOT NULL COMMENT '사용자 코드',
 create_date DATETIME DEFAULT NOW() COMMENT '채팅방 생성일',
 update_date DATETIME COMMENT '수정일',
-del_yn VARCHAR(1) CHECK(del_yn IN ('Y','N')) DEFAULT 'N' COMMENT '삭제 여부'
+del_yn VARCHAR(1) CHECK(del_yn IN ('Y','N')) DEFAULT 'N' COMMENT '삭제 여부',
+FOREIGN KEY (user_id) REFERENCES USERS (user_id)
 )DEFAULT CHARSET = utf8;
 
 CREATE TABLE FRIENDS (
-user_id INT(100) PRIMARY KEY NOT NULL COMMENT '사용자 코드',
-frd_id INT(100) PRIMARY KEY NOT NULL COMMENT '친구 코드'
+user_id INT(100) NOT NULL COMMENT '사용자 코드',
+frd_id INT(100) NOT NULL COMMENT '친구 코드',
+FOREIGN KEY (user_id) REFERENCES USERS (user_id)
 )DEFAULT CHARSET = utf8;
