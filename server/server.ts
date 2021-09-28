@@ -4,7 +4,6 @@ import http from "http";
 
 import UserController from "./controllers/user";
 import ServerConfig from "server/serverConfig";
-import chatServer from "./chatServer";
 
 const app = express();
 const server = http.createServer(app);
@@ -30,13 +29,30 @@ app.listen(ServerConfig.server.port, ServerConfig.server.console);
 
 // 웹소켓 서버 열기
 
+const ConnectedUsers: Array<WebSocket> = [];
+
 wss.on("connection", (ws: WebSocket) => {
-  chatServer.onMessage(ws);
+  ConnectedUsers.push(ws);
+
+  ws.on("close", () => {
+    console.log("Close from Client");
+  });
+
+  ws.on("error", (e: string) => {
+    console.log("WebSocket Error");
+    console.log(e);
+  });
+
+  ws.on("message", (message: string) => {
+    console.info("received: %s", message);
+    const sendMsg = { message: message };
+
+    ConnectedUsers.forEach((user: WebSocket) =>
+      user.send(JSON.stringify(sendMsg))
+    );
+  });
 });
 
-wss.on("close", (ws: WebSocket) => {
-  ws.send("Bye!!");
-});
 server.listen(ServerConfig.webBocketServer.port, () => {
   console.info("WebSocket Server Open!!");
 });
