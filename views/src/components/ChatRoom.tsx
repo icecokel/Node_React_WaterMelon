@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+// TODO state가 제대로 적대 되지 않음 개선
+// Redux 사용 고려
+
 const ChatRoom = (props: any) => {
   const [receivedMessage, setReceivedMessage] = useState<Array<any>>([]);
   const [message, setMessage] = useState<string>("");
@@ -11,6 +14,8 @@ const ChatRoom = (props: any) => {
     const tempReceivedMessageList = [...receivedMessage];
     tempReceivedMessageList.push(JSON.parse(msgObj.message));
     setReceivedMessage(tempReceivedMessageList);
+
+    console.log(tempReceivedMessageList);
   };
 
   const sendMessage = () => {
@@ -30,10 +35,12 @@ const ChatRoom = (props: any) => {
       채팅창
       <div className="chat_target_box">대상 닉네임</div>
       <div className="chat_content_box">
-        {receivedMessage &&
-          receivedMessage.map((item, idex) => {
-            return <p key={idex}> {item.message}</p>;
-          })}
+        <ul>
+          {receivedMessage &&
+            receivedMessage.map((item, idex) => {
+              return <li key={idex}> {item.message}</li>;
+            })}
+        </ul>
       </div>
       <div className="chat_send_Message_box">
         <input

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { isConstructorDeclaration } from "typescript";
 import FrontConfig from "../frontConfig";
 import ChatRoom from "./ChatRoom";
 
@@ -14,14 +15,18 @@ const Main = (props: any) => {
   webSocket.onopen = (e) => {
     console.info("Server Connected");
   };
-
   webSocket.onclose = (e) => {
-    alert("Server Closed");
-    webSocket.onopen = (e) => {
-      console.info("Server Connected");
-    };
-  };
+    console.error("Re Try Server Connecting...");
 
+    setTimeout(() => {
+      webSocket.onopen = (e) => {
+        console.info("Server Connected");
+      };
+    }, 60 * 1000);
+  };
+  webSocket.onerror = (e) => {
+    console.error(`WebSocket Error : ${e}`);
+  };
   useEffect(() => {
     loginCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,9 +83,11 @@ const ChatTab = (props: any) => {
       </div>
       <div className="chatList_contents">
         {mode === TabMode.FRIENDS && (
-          <div className="chatList_friends">adad</div>
+          <div className="chatList_friends">친구 목록</div>
         )}
-        {mode === TabMode.ROOM && <div className="chatList_room">dfdf</div>}
+        {mode === TabMode.ROOM && (
+          <div className="chatList_room">채팅방 목록</div>
+        )}
       </div>
     </div>
   );
