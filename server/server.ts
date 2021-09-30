@@ -47,6 +47,8 @@ wss.on("connection", (ws: WebSocket) => {
     console.info("received: %s", message);
     const sendMsg = { message: message };
 
+    // TODO receiver 설정 작업 진행
+
     ConnectedUsers.forEach((user: WebSocket) =>
       user.send(JSON.stringify(sendMsg))
     );
