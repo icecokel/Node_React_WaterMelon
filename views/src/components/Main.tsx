@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { isConstructorDeclaration } from "typescript";
 import FrontConfig from "../frontConfig";
 import ChatRoom from "./ChatRoom";
 
@@ -10,23 +9,41 @@ export enum TabMode {
 
 const Main = (props: any) => {
   const callAPI: Function = props.callAPI;
-
+  const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
+  const nickname = window.sessionStorage.getItem("nickname");
   const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
+
   webSocket.onopen = (e) => {
     console.info("Server Connected");
   };
-  webSocket.onclose = (e) => {
-    console.error("Re Try Server Connecting...");
 
-    setTimeout(() => {
-      webSocket.onopen = (e) => {
-        console.info("Server Connected");
-      };
-    }, 60 * 1000);
+  // webSocket.onclose = (e) => {
+  //   console.error("Re Try Server Connecting...");
+
+  //   setTimeout(() => {
+  //     webSocket.onopen = (e) => {
+  //       console.info("Server Connected");
+  //     };
+  //   }, 60 * 1000);
+  // };
+
+  // webSocket.onerror = (e) => {
+  //   console.error(`WebSocket Error : ${e}`);
+  // };
+
+  webSocket.onmessage = (e: any) => {
+    const msgObj = JSON.parse(e.data);
+    const tempReceivedMessageList = [...receivedMessages];
+    tempReceivedMessageList.push(JSON.parse(msgObj.message));
+    setReceivedMessages(tempReceivedMessageList);
+    console.log("ss");
   };
-  webSocket.onerror = (e) => {
-    console.error(`WebSocket Error : ${e}`);
+
+  const sendMessage = (message: string) => {
+    const params = { nickname: nickname, message: message };
+    webSocket.send(JSON.stringify(params));
   };
+
   useEffect(() => {
     loginCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,7 +60,11 @@ const Main = (props: any) => {
   return (
     <div className="main_box">
       <ChatTab key="chatTab_1" />
-      <ChatRoom key="chatbox_1" webSocket={webSocket} />
+      <ChatRoom
+        key="chatbox_1"
+        receivedMessages={receivedMessages}
+        sendMessage={sendMessage}
+      />
     </div>
   );
 };

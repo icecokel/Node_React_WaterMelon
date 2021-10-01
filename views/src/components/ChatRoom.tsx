@@ -4,29 +4,13 @@ import { useState } from "react";
 // Redux 사용 고려
 
 const ChatRoom = (props: any) => {
-  const [receivedMessage, setReceivedMessage] = useState<Array<any>>([]);
   const [message, setMessage] = useState<string>("");
-  const nickname = window.sessionStorage.getItem("nickname");
-  const webSocket = props.webSocket;
-
-  webSocket.onmessage = (e: any) => {
-    const msgObj = JSON.parse(e.data);
-    const tempReceivedMessageList = [...receivedMessage];
-    tempReceivedMessageList.push(JSON.parse(msgObj.message));
-    setReceivedMessage(tempReceivedMessageList);
-
-    console.log(tempReceivedMessageList);
-  };
-
-  const sendMessage = () => {
-    const params = { nickname: nickname, message: message };
-    webSocket.send(JSON.stringify(params));
-    setMessage("");
-  };
+  const dd: Array<any> = props.receivedMessages ?? [];
 
   const onPressEnter = (e: any) => {
     if (e.key === "Enter") {
-      sendMessage();
+      props.sendMessage();
+      setMessage("");
     }
   };
 
@@ -36,8 +20,8 @@ const ChatRoom = (props: any) => {
       <div className="chat_target_box">대상 닉네임</div>
       <div className="chat_content_box">
         <ul>
-          {receivedMessage &&
-            receivedMessage.map((item, idex) => {
+          {dd &&
+            dd.map((item, idex) => {
               return <li key={idex}> {item.message}</li>;
             })}
         </ul>
@@ -51,7 +35,14 @@ const ChatRoom = (props: any) => {
             setMessage(e.target.value);
           }}
         />
-        <button onClick={sendMessage}>전송</button>
+        <button
+          onClick={() => {
+            props.sendMessage();
+            setMessage("");
+          }}
+        >
+          전송
+        </button>
       </div>
     </div>
   );
