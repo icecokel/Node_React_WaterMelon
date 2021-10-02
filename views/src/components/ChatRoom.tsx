@@ -9,7 +9,7 @@ const ChatRoom = (props: any) => {
 
   const onPressEnter = (e: any) => {
     if (e.key === "Enter") {
-      props.sendMessage();
+      props.sendMessage(message);
       setMessage("");
     }
   };
@@ -37,7 +37,7 @@ const ChatRoom = (props: any) => {
         />
         <button
           onClick={() => {
-            props.sendMessage();
+            props.sendMessage(message);
             setMessage("");
           }}
         >
