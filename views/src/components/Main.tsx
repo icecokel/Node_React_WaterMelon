@@ -17,26 +17,25 @@ const Main = (props: any) => {
     console.info("Server Connected");
   };
 
-  // webSocket.onclose = (e) => {
-  //   console.error("Re Try Server Connecting...");
+  webSocket.onclose = (e) => {
+    console.error("Re Try Server Connecting...");
 
-  //   setTimeout(() => {
-  //     webSocket.onopen = (e) => {
-  //       console.info("Server Connected");
-  //     };
-  //   }, 60 * 1000);
-  // };
+    setTimeout(() => {
+      webSocket.onopen = (e) => {
+        console.info("Server Connected");
+      };
+    }, 60 * 1000);
+  };
 
-  // webSocket.onerror = (e) => {
-  //   console.error(`WebSocket Error : ${e}`);
-  // };
+  webSocket.onerror = (e) => {
+    console.error(`WebSocket Error : ${e}`);
+  };
 
   webSocket.onmessage = (e: any) => {
     const msgObj = JSON.parse(e.data);
     const tempReceivedMessageList = [...receivedMessages];
     tempReceivedMessageList.push(JSON.parse(msgObj.message));
     setReceivedMessages(tempReceivedMessageList);
-    console.log("ss");
   };
 
   const sendMessage = (message: string) => {
@@ -45,9 +44,12 @@ const Main = (props: any) => {
   };
 
   useEffect(() => {
+    // 의미없는 렌더링 개선 , useCallback , useMemo 사용 고려
     loginCheck();
+    console.log("2");
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [webSocket]);
 
   const loginCheck = async () => {
     const res = await callAPI({
