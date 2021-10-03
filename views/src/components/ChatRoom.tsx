@@ -1,8 +1,5 @@
 import { useState } from "react";
 
-// TODO state가 제대로 적대 되지 않음 개선
-// Redux 사용 고려
-
 const ChatRoom = (props: any) => {
   const [message, setMessage] = useState<string>("");
   const dd: Array<any> = props.receivedMessages ?? [];
