@@ -12,23 +12,23 @@ const Main = (props: any) => {
   const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
   const nickname = window.sessionStorage.getItem("nickname");
   const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
+  const [isOnReady, setIsOnReady] = useState<boolean>(false);
 
-  webSocket.onopen = (e) => {
-    console.info("Server Connected");
-  };
+  if (!isOnReady) {
+    webSocket.onopen = (e) => {
+      console.info("Server Connected");
+      setIsOnReady(true);
+    };
 
-  webSocket.onclose = (e) => {
-    console.error("Re Try Server Connecting...");
-
-    setTimeout(() => {
-      webSocket.onopen = (e) => {
-        console.info("Server Connected");
-      };
-    }, 60 * 1000);
-  };
+    webSocket.onclose = (e) => {
+      console.error("Re Try Server Connecting...");
+      setIsOnReady(false);
+    };
+  }
 
   webSocket.onerror = (e) => {
     console.error(`WebSocket Error : ${e}`);
+    setIsOnReady(false);
   };
 
   webSocket.onmessage = (e: any) => {
@@ -40,14 +40,12 @@ const Main = (props: any) => {
 
   const sendMessage = (message: string) => {
     const params = { nickname: nickname, message: message };
-    webSocket.send(JSON.stringify(params));
+    isOnReady && webSocket.send(JSON.stringify(params));
   };
 
   useEffect(() => {
     // 의미없는 렌더링 개선 , useCallback , useMemo 사용 고려
     loginCheck();
-    console.log("2");
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [webSocket]);
 
