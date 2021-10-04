@@ -51,6 +51,7 @@ const App = () => {
                 render={(props) => (
                   <Main
                     {...props}
+                    isLogined={isLogined}
                     setIsLogined={setIsLogined}
                     callAPI={callAPI}
                   />

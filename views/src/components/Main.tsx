@@ -14,18 +14,19 @@ const Main = (props: any) => {
   const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
   const [isOnReady, setIsOnReady] = useState<boolean>(false);
 
+  // TODO
+  // 웹소켓 App로 이동 해야함.
+  // 로그 아웃 할 때 소켓 클로즈 해야함
   if (!isOnReady) {
     webSocket.onopen = (e) => {
       console.info("Server Connected");
       setIsOnReady(true);
     };
-
-    webSocket.onclose = (e) => {
-      console.error("Re Try Server Connecting...");
-      setIsOnReady(false);
-    };
   }
-
+  webSocket.onclose = (e) => {
+    console.error("Re Try Server Connecting...");
+    setIsOnReady(false);
+  };
   webSocket.onerror = (e) => {
     console.error(`WebSocket Error : ${e}`);
     setIsOnReady(false);
@@ -44,8 +45,10 @@ const Main = (props: any) => {
   };
 
   useEffect(() => {
+    // TODO
     // 의미없는 렌더링 개선 , useCallback , useMemo 사용 고려
-    loginCheck();
+    // 무한 로그인 체크 진행 중 확인 필요.
+    !props.ioLogined && loginCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [webSocket]);
 
