@@ -8,6 +8,7 @@ import "./styles/style.scss";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Main from "./components/Main";
+import FrontConfig from "./frontConfig";
 
 const callAPI = async (props: { url: string; method: string; data: any }) => {
   let result: any = "";
@@ -38,6 +39,24 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
 const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
 
+  const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
+  const [isOnReady, setIsOnReady] = useState<boolean>(false);
+
+  if (!isOnReady) {
+    webSocket.onopen = (e) => {
+      console.info("Server Connected");
+      setIsOnReady(true);
+    };
+  }
+  webSocket.onclose = (e) => {
+    console.error("Re Try Server Connecting...");
+    setIsOnReady(false);
+  };
+  webSocket.onerror = (e) => {
+    console.error(`WebSocket Error : ${e}`);
+    setIsOnReady(false);
+  };
+
   return (
     <main>
       <Router>
@@ -54,6 +73,8 @@ const App = () => {
                     isLogined={isLogined}
                     setIsLogined={setIsLogined}
                     callAPI={callAPI}
+                    isOnReady={isOnReady}
+                    webSocket={webSocket}
                   />
                 )}
               />
