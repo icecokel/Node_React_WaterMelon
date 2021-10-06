@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const ChatRoom = (props: any) => {
   const [message, setMessage] = useState<string>("");
-  const dd: Array<any> = props.receivedMessages ?? [];
+  const messages: Array<any> = props.receivedMessages ?? [];
 
   const onPressEnter = (e: any) => {
     if (e.key === "Enter") {
@@ -17,8 +17,8 @@ const ChatRoom = (props: any) => {
       <div className="chat_target_box">대상 닉네임</div>
       <div className="chat_content_box">
         <ul>
-          {dd &&
-            dd.map((item, idex) => {
+          {messages &&
+            messages.map((item, idex) => {
               return <li key={idex}> {item.message}</li>;
             })}
         </ul>
