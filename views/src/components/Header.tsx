@@ -19,6 +19,7 @@ const Header = (props: any) => {
       method: "POST",
     });
 
+    props.webSocket.close();
     window.sessionStorage.clear();
     setNickname("");
     props.setIsLogined(res.isLogined);
