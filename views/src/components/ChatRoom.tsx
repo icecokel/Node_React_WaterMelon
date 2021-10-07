@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ChatBubble from "./ChatBubble";
 
 const ChatRoom = (props: any) => {
   const [message, setMessage] = useState<string>("");
@@ -19,7 +20,15 @@ const ChatRoom = (props: any) => {
         <ul>
           {messages &&
             messages.map((item, idex) => {
-              return <li key={idex}> {item.message}</li>;
+              console.log(item);
+
+              return (
+                <ChatBubble
+                  key={idex}
+                  nickname={item.nickname}
+                  message={item.message}
+                />
+              );
             })}
         </ul>
       </div>
