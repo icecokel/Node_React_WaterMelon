@@ -136,6 +136,39 @@
       div {
         border: 0px;
       }
+
+      ul {
+        list-style: none;
+      }
+
+      .chat_bubble_self {
+        text-align: right;
+        padding-right: 10px;
+        margin-left: auto;
+        width: 100px;
+        border-radius: $borderRadius;
+        margin-bottom: 5px;
+        border: $color0 solid 1px;
+        background-color: $color7;
+      }
+      .chat_bubble_target {
+        border-radius: $borderRadius;
+
+        width: 100px;
+        margin-bottom: 5px;
+        span {
+          display: block;
+          margin: 0px;
+          padding: 0px;
+        }
+        p {
+          margin: 0px;
+          padding-left: 5px;
+          border-radius: $borderRadius;
+          border: $color2 solid 1px;
+          background-color: $color6;
+        }
+      }
     }
     .chat_send_Message_box {
       border: 0px;
