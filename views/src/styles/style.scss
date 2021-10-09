@@ -150,6 +150,7 @@
         margin-bottom: 5px;
         border: $color0 solid 1px;
         background-color: $color7;
+        font-size: 16px;
       }
       .chat_bubble_target {
         border-radius: $borderRadius;
@@ -160,6 +161,7 @@
           display: block;
           margin: 0px;
           padding: 0px;
+          font-size: 14px;
         }
         p {
           margin: 0px;
@@ -167,6 +169,7 @@
           border-radius: $borderRadius;
           border: $color2 solid 1px;
           background-color: $color6;
+          font-size: 16px;
         }
       }
     }
