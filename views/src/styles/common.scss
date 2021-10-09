@@ -16,6 +16,7 @@ $colorPoint1: #900f23;
 // Size Section
 $borderRadius: 5px;
 $minWidth: 1300px;
+$max-height: 790px;
 
 // Font Section
 @import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap");
@@ -33,6 +34,7 @@ main {
   display: flex;
   flex-direction: column;
   border: 0px;
+  max-height: $max-height;
 }
 
 header {

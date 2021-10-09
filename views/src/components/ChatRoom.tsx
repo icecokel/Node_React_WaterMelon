@@ -20,8 +20,6 @@ const ChatRoom = (props: any) => {
         <ul>
           {messages &&
             messages.map((item, idex) => {
-              console.log(item);
-
               return (
                 <ChatBubble
                   key={idex}
