@@ -11,3 +11,7 @@ VALUES ('frd1@coke.com', 'asd', '1' ,'친구1');
 
 INSERT INTO USERS ( email, user_passwd, sns, nickname ) 
 VALUES ('frd2@coke.com', 'asd', '2' ,'친구2');
+
+INSERT  INTO FRIENDS(user_id,frd_id) VALUES 
+(1,3),
+(1,4);
