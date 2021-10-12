@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import ChatRoom from "./ChatRoom";
-
-export enum TabMode {
-  FRIENDS = 0,
-  ROOM = 1,
-}
+import ChatTab from "./ChatTab";
 
 const Main = (props: any) => {
   const callAPI: Function = props.callAPI;
@@ -49,51 +45,6 @@ const Main = (props: any) => {
         receivedMessages={receivedMessages}
         sendMessage={sendMessage}
       />
-    </div>
-  );
-};
-
-const ChatTab = (props: any) => {
-  const [mode, setMode] = useState<number>(TabMode.FRIENDS);
-
-  return (
-    <div className="chatList_box">
-      <div className="chatList_tab">
-        <label
-          style={
-            mode === TabMode.FRIENDS
-              ? { backgroundColor: "#f28585", color: "#FFFFFF" }
-              : {}
-          }
-          className="friends_lbl"
-          onClick={() => {
-            setMode(TabMode.FRIENDS);
-          }}
-        >
-          친구목록
-        </label>
-        <label
-          style={
-            mode === TabMode.ROOM
-              ? { backgroundColor: "#c2d991", color: "#FFFFFF" }
-              : {}
-          }
-          className="room_lbl"
-          onClick={() => {
-            setMode(TabMode.ROOM);
-          }}
-        >
-          대화방
-        </label>
-      </div>
-      <div className="chatList_contents">
-        {mode === TabMode.FRIENDS && (
-          <div className="chatList_friends">친구 목록</div>
-        )}
-        {mode === TabMode.ROOM && (
-          <div className="chatList_room">채팅방 목록</div>
-        )}
-      </div>
     </div>
   );
 };
