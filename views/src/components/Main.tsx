@@ -39,7 +39,7 @@ const Main = (props: any) => {
   };
   return (
     <div className="main_box">
-      <ChatTab key="chatTab_1" />
+      <ChatTab key="chatTab_1" callAPI={callAPI} />
       <ChatRoom
         key="chatbox_1"
         receivedMessages={receivedMessages}
