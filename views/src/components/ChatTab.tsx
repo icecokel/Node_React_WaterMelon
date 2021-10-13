@@ -7,6 +7,15 @@ export enum TabMode {
 
 const ChatTab = (props: any) => {
   const [mode, setMode] = useState<number>(TabMode.FRIENDS);
+  const callAPI: Function = props.callAPI;
+
+  useEffect(() => {
+    getFriendsList();
+  }, []);
+
+  const getFriendsList = async () => {
+    // id를 가지고 친구 목록 가져오기
+  };
 
   return (
     <div className="chatList_box">
