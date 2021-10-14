@@ -59,6 +59,16 @@ controller.post("/login", (req, res) => {
   }
 });
 
+controller.get("/getFriedList", (req, res) => {
+  console.info("get :::: getFriedList");
+
+  const session = req.session;
+
+  if (session.nickname) {
+    const sql = `SELECT * FROM DDDD`;
+  }
+});
+
 controller.post("/logout", (req, res) => {
   req.session.destroy(() => {
     req.session;
