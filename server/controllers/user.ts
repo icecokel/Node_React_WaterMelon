@@ -65,18 +65,7 @@ controller.get("/getFriedList", (req, res) => {
   const session = req.session;
 
   if (session.nickname) {
-    const sql = `SELECT 
-                  u2.nickname
-                  FROM USERS u
-                  LEFT JOIN FRIENDS f ON u.user_id = f.user_id
-                  LEFT JOIN USERS u2 ON u2.user_id = f.frd_id
-                  WHERE u.email = "${session.email}"
-                  ORDER BY u2.nickname `;
-
-    db.query(sql, (err, data) => {
-      console.log(err);
-      console.log(data);
-    });
+    const sql = `SELECT * FROM DDDD`;
   }
 });
 
