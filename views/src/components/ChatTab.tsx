@@ -15,6 +15,10 @@ const ChatTab = (props: any) => {
 
   const getFriendsList = async () => {
     // id를 가지고 친구 목록 가져오기
+    const res = await callAPI({
+      url: "/user/getFriedList",
+      method: "GET",
+    });
   };
 
   return (
