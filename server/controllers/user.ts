@@ -74,8 +74,13 @@ controller.get("/getFriedList", (req, res) => {
                   ORDER BY u2.nickname `;
 
     db.query(sql, (err, data) => {
-      console.log(err);
-      console.log(data);
+      if (err) {
+        console.log(err);
+      }
+      let result = {} as any;
+      result["count"] = data.length;
+      result["items"] = data;
+      res.send(result);
     });
   }
 });
