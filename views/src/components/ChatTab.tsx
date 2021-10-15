@@ -7,11 +7,15 @@ export enum TabMode {
 
 const ChatTab = (props: any) => {
   const [mode, setMode] = useState<number>(TabMode.FRIENDS);
+  const [friendList, setFriendList] = useState<Array<any>>();
+  const [friendCount, setFriendCount] = useState<number>();
   const callAPI: Function = props.callAPI;
 
   useEffect(() => {
-    getFriendsList();
-  }, []);
+    friendList || getFriendsList();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [friendList]);
 
   const getFriendsList = async () => {
     // id를 가지고 친구 목록 가져오기
@@ -19,6 +23,13 @@ const ChatTab = (props: any) => {
       url: "/user/getFriedList",
       method: "GET",
     });
+
+    console.log(res);
+
+    if (res) {
+      setFriendList(res.items);
+      setFriendCount(res.count);
+    }
   };
 
   return (
@@ -53,7 +64,15 @@ const ChatTab = (props: any) => {
       </div>
       <div className="chatList_contents">
         {mode === TabMode.FRIENDS && (
-          <div className="chatList_friends">친구 목록</div>
+          <div className="chatList_friends">
+            <ul>
+              {friendList &&
+                (friendList as Array<any>).map((item) => {
+                  console.log(item);
+                  return <li>{item.nickname}</li>;
+                })}
+            </ul>
+          </div>
         )}
         {mode === TabMode.ROOM && (
           <div className="chatList_room">채팅방 목록</div>
