@@ -10,15 +10,15 @@ const ChatTab = (props: any) => {
   const [friendList, setFriendList] = useState<Array<any>>();
   const [friendCount, setFriendCount] = useState<number>();
   const callAPI: Function = props.callAPI;
+  const isLogined = props.isLogined;
 
   useEffect(() => {
-    friendList || getFriendsList();
+    isLogined || getFriendsList();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [friendList]);
 
   const getFriendsList = async () => {
-    // id를 가지고 친구 목록 가져오기
     const res = await callAPI({
       url: "/user/getFriedList",
       method: "GET",
@@ -68,7 +68,6 @@ const ChatTab = (props: any) => {
             <ul>
               {friendList &&
                 (friendList as Array<any>).map((item) => {
-                  console.log(item);
                   return <li>{item.nickname}</li>;
                 })}
             </ul>
