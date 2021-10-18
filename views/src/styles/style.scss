@@ -107,6 +107,19 @@
 
       .chatList_friends {
         border: $color3 solid 2.5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+        ul {
+          width: 90%;
+          padding-top: 10px;
+          li {
+            padding: 5px;
+            border: $color5 solid 1px;
+            border-radius: $borderRadius;
+          }
+        }
       }
 
       .chatList_room {
