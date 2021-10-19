@@ -65,6 +65,10 @@ const ChatTab = (props: any) => {
       <div className="chatList_contents">
         {mode === TabMode.FRIENDS && (
           <div className="chatList_friends">
+            <div>
+              친구{friendCount} 명
+              <hr />
+            </div>
             <ul>
               {friendList &&
                 (friendList as Array<any>).map((item) => {
