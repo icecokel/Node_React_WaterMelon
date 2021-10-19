@@ -40,6 +40,7 @@ const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
 
   const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
+  const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
   const [isOnReady, setIsOnReady] = useState<boolean>(false);
 
   if (!isOnReady) {
@@ -55,6 +56,14 @@ const App = () => {
   webSocket.onerror = (e) => {
     console.error(`WebSocket Error : ${e}`);
     setIsOnReady(false);
+  };
+
+  webSocket.onmessage = (e: any) => {
+    // 원인 파악이 필요
+    const msgObj = JSON.parse(e.data);
+    const tempReceivedMessageList = [...receivedMessages];
+    tempReceivedMessageList.push(JSON.parse(msgObj.message));
+    setReceivedMessages(tempReceivedMessageList);
   };
 
   return (
