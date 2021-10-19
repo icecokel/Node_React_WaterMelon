@@ -4,19 +4,8 @@ import ChatTab from "./ChatTab";
 
 const Main = (props: any) => {
   const callAPI: Function = props.callAPI;
-  const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
   const nickname = window.sessionStorage.getItem("nickname");
   const webSocket: WebSocket = props.webSocket;
-
-  webSocket.onmessage = (e: any) => {
-    console.log("onmessage");
-
-    const msgObj = JSON.parse(e.data);
-    console.log(msgObj);
-    const tempReceivedMessageList = [...receivedMessages];
-    tempReceivedMessageList.push(JSON.parse(msgObj.message));
-    setReceivedMessages(tempReceivedMessageList);
-  };
 
   const sendMessage = (message: string) => {
     console.log("sendMessage");
@@ -25,9 +14,11 @@ const Main = (props: any) => {
   };
 
   useEffect(() => {
-    !props.ioLogined && loginCheck();
+    !props.isLogined && loginCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(process.env.REACT_APP_HI);
 
   const loginCheck = async () => {
     const res = await callAPI({
@@ -39,10 +30,10 @@ const Main = (props: any) => {
   };
   return (
     <div className="main_box">
-      <ChatTab key="chatTab_1" callAPI={callAPI} />
+      <ChatTab key="chatTab_1" callAPI={callAPI} isLogined={props.isLogined} />
       <ChatRoom
         key="chatbox_1"
-        receivedMessages={receivedMessages}
+        receivedMessages={props.receivedMessages}
         sendMessage={sendMessage}
       />
     </div>
