@@ -8,7 +8,6 @@ import "./styles/style.scss";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Main from "./components/Main";
-import FrontConfig from "./frontConfig";
 
 const callAPI = async (props: { url: string; method: string; data: any }) => {
   let result: any = "";
@@ -39,9 +38,16 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
 const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
 
-  const webSocket: WebSocket = new WebSocket(FrontConfig.webSocker.baseUrl);
   const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
   const [isOnReady, setIsOnReady] = useState<boolean>(false);
+
+  if (!process.env.REACT_APP_BASEURL_WEBSOCKER) {
+    return;
+  }
+
+  const webSocket: WebSocket = new WebSocket(
+    process.env.REACT_APP_BASEURL_WEBSOCKER
+  );
 
   if (!isOnReady) {
     webSocket.onopen = (e) => {
@@ -88,6 +94,7 @@ const App = () => {
                     callAPI={callAPI}
                     isOnReady={isOnReady}
                     webSocket={webSocket}
+                    receivedMessages={receivedMessages}
                   />
                 )}
               />
