@@ -35,19 +35,14 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
   return result.data;
 };
 
+const webSocketUrl = process.env.REACT_APP_BASEURL_WEBSOCKER;
+
 const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
 
+  const webSocket: WebSocket = new WebSocket("ws://localhost:1225");
   const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
   const [isOnReady, setIsOnReady] = useState<boolean>(false);
-
-  if (!process.env.REACT_APP_BASEURL_WEBSOCKER) {
-    return;
-  }
-
-  const webSocket: WebSocket = new WebSocket(
-    process.env.REACT_APP_BASEURL_WEBSOCKER
-  );
 
   if (!isOnReady) {
     webSocket.onopen = (e) => {
@@ -94,7 +89,6 @@ const App = () => {
                     callAPI={callAPI}
                     isOnReady={isOnReady}
                     webSocket={webSocket}
-                    receivedMessages={receivedMessages}
                   />
                 )}
               />
