@@ -8,7 +8,6 @@ const Main = (props: any) => {
   const webSocket: WebSocket = props.webSocket;
 
   const sendMessage = (message: string) => {
-    console.log("sendMessage");
     const params = { nickname: nickname, message: message };
     props.isOnReady && webSocket.send(JSON.stringify(params));
   };
@@ -17,8 +16,6 @@ const Main = (props: any) => {
     !props.isLogined && loginCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(process.env.REACT_APP_HI);
 
   const loginCheck = async () => {
     const res = await callAPI({
