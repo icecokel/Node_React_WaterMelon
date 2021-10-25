@@ -64,7 +64,9 @@ const App = () => {
     const msgObj = JSON.parse(e.data);
     const tempReceivedMessageList = [...receivedMessages];
     tempReceivedMessageList.push(JSON.parse(msgObj.message));
-    setReceivedMessages(tempReceivedMessageList);
+    if (tempReceivedMessageList.length !== receivedMessages.length) {
+      setReceivedMessages(tempReceivedMessageList);
+    }
   };
 
   return (
@@ -88,6 +90,7 @@ const App = () => {
                     setIsLogined={setIsLogined}
                     callAPI={callAPI}
                     isOnReady={isOnReady}
+                    receivedMessages={receivedMessages}
                     webSocket={webSocket}
                   />
                 )}
