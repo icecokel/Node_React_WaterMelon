@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
@@ -40,34 +40,46 @@ const webSocketUrl = process.env.REACT_APP_BASEURL_WEBSOCKER;
 const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
 
-  const webSocket: WebSocket = new WebSocket("ws://localhost:1225");
+  let webSocket: WebSocket = new WebSocket("ws://localhost:1225");
   const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
   const [isOnReady, setIsOnReady] = useState<boolean>(false);
 
-  if (!isOnReady) {
-    webSocket.onopen = (e) => {
-      console.info("Server Connected");
-      setIsOnReady(true);
+  const webSocketInit = () => {
+    webSocket = new WebSocket("ws://localhost:1225");
+
+    if (!isOnReady) {
+      webSocket.onopen = (e) => {
+        console.info("Server Connected");
+        setIsOnReady(true);
+      };
+    }
+    webSocket.onclose = (e) => {
+      console.error("Re Try Server Connecting...");
+      webSocketInit();
+      setIsOnReady(false);
     };
-  }
-  webSocket.onclose = (e) => {
-    console.error("Re Try Server Connecting...");
-    setIsOnReady(false);
-  };
-  webSocket.onerror = (e) => {
-    console.error(`WebSocket Error : ${e}`);
-    setIsOnReady(false);
+    webSocket.onerror = (e) => {
+      console.error(`WebSocket Error : ${e}`);
+      setIsOnReady(false);
+    };
+
+    webSocket.onmessage = (e: any) => {
+      // 원인 파악이 필요
+      const msgObj = JSON.parse(e.data);
+      const tempReceivedMessageList = [...receivedMessages];
+      tempReceivedMessageList.push(JSON.parse(msgObj.message));
+
+      if (tempReceivedMessageList.length !== receivedMessages.length) {
+        setReceivedMessages(tempReceivedMessageList);
+      }
+    };
   };
 
-  webSocket.onmessage = (e: any) => {
-    // 원인 파악이 필요
-    const msgObj = JSON.parse(e.data);
-    const tempReceivedMessageList = [...receivedMessages];
-    tempReceivedMessageList.push(JSON.parse(msgObj.message));
-    if (tempReceivedMessageList.length !== receivedMessages.length) {
-      setReceivedMessages(tempReceivedMessageList);
-    }
-  };
+  useEffect(() => {
+    webSocketInit();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLogined]);
 
   return (
     <main>
