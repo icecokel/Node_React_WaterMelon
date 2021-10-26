@@ -24,8 +24,6 @@ const ChatTab = (props: any) => {
       method: "GET",
     });
 
-    console.log(res);
-
     if (res) {
       setFriendList(res.items);
       setFriendCount(res.count);
