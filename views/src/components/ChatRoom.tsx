@@ -3,12 +3,28 @@ import ChatBubble from "./ChatBubble";
 
 const ChatRoom = (props: any) => {
   const [message, setMessage] = useState<string>("");
-  const messages: Array<any> = props.receivedMessages ?? [];
+  const nickname = window.sessionStorage.getItem("nickname");
+  const webSocket: WebSocket = props.webSocket;
+  const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
 
   const onPressEnter = (e: any) => {
     if (e.key === "Enter") {
-      props.sendMessage(message);
+      sendMessage(message);
       setMessage("");
+    }
+  };
+  const sendMessage = (message: string) => {
+    const params = { nickname: nickname, message: message };
+    webSocket.send(JSON.stringify(params));
+  };
+
+  webSocket.onmessage = (e: any) => {
+    const msgObj = JSON.parse(e.data);
+    const tempReceivedMessageList = [...receivedMessages];
+
+    tempReceivedMessageList.push(JSON.parse(msgObj.message));
+    if (tempReceivedMessageList.length !== receivedMessages.length) {
+      setReceivedMessages(tempReceivedMessageList);
     }
   };
 
@@ -18,8 +34,8 @@ const ChatRoom = (props: any) => {
       <div className="chat_target_box">대상 닉네임</div>
       <div className="chat_content_box">
         <ul>
-          {messages &&
-            messages.map((item, idex) => {
+          {receivedMessages &&
+            receivedMessages.map((item, idex) => {
               return (
                 <ChatBubble
                   key={idex}
@@ -41,7 +57,7 @@ const ChatRoom = (props: any) => {
         />
         <button
           onClick={() => {
-            props.sendMessage(message);
+            sendMessage(message);
             setMessage("");
           }}
         >
