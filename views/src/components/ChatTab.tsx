@@ -44,7 +44,7 @@ const ChatTab = (props: any) => {
             setMode(TabMode.FRIENDS);
           }}
         >
-          친구목록
+          친구목록dfdf
         </label>
         <label
           style={

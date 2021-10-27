@@ -34,14 +34,10 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
 
   return result.data;
 };
-
-const webSocketUrl = process.env.REACT_APP_BASEURL_WEBSOCKER;
-
+let webSocket: WebSocket = new WebSocket("ws://localhost:1225");
 const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
 
-  let webSocket: WebSocket = new WebSocket("ws://localhost:1225");
-  const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
   const [isOnReady, setIsOnReady] = useState<boolean>(false);
 
   const webSocketInit = () => {
@@ -61,17 +57,6 @@ const App = () => {
     webSocket.onerror = (e) => {
       console.error(`WebSocket Error : ${e}`);
       setIsOnReady(false);
-    };
-
-    webSocket.onmessage = (e: any) => {
-      // 원인 파악이 필요
-      const msgObj = JSON.parse(e.data);
-      const tempReceivedMessageList = [...receivedMessages];
-      tempReceivedMessageList.push(JSON.parse(msgObj.message));
-
-      if (tempReceivedMessageList.length !== receivedMessages.length) {
-        setReceivedMessages(tempReceivedMessageList);
-      }
     };
   };
 
@@ -102,7 +87,6 @@ const App = () => {
                     setIsLogined={setIsLogined}
                     callAPI={callAPI}
                     isOnReady={isOnReady}
-                    receivedMessages={receivedMessages}
                     webSocket={webSocket}
                   />
                 )}
