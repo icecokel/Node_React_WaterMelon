@@ -1,16 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import ChatRoom from "./ChatRoom";
 import ChatTab from "./ChatTab";
 
 const Main = (props: any) => {
   const callAPI: Function = props.callAPI;
-  const nickname = window.sessionStorage.getItem("nickname");
-  const webSocket: WebSocket = props.webSocket;
 
-  const sendMessage = (message: string) => {
-    const params = { nickname: nickname, message: message };
-    props.isOnReady && webSocket.send(JSON.stringify(params));
-  };
+  const webSocket: WebSocket = props.webSocket;
 
   useEffect(() => {
     !props.isLogined && loginCheck();
@@ -30,8 +25,8 @@ const Main = (props: any) => {
       <ChatTab key="chatTab_1" callAPI={callAPI} isLogined={props.isLogined} />
       <ChatRoom
         key="chatbox_1"
-        receivedMessages={props.receivedMessages}
-        sendMessage={sendMessage}
+        webSocket={webSocket}
+        isOnReady={props.isOnReady}
       />
     </div>
   );
