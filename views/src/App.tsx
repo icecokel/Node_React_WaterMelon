@@ -34,7 +34,7 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
 
   return result.data;
 };
-let webSocket: WebSocket = new WebSocket("ws://localhost:1225");
+let webSocket: WebSocket;
 const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
 
@@ -64,7 +64,7 @@ const App = () => {
     webSocketInit();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLogined]);
+  }, []);
 
   return (
     <main>
