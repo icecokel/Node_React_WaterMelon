@@ -30,6 +30,8 @@ const ChatTab = (props: any) => {
     }
   };
 
+  // TODO 삼항식이 아닌, 모드에 따른 컴포넌트 변경 방식으로 변경
+
   return (
     <div className="chatList_box">
       <div className="chatList_tab">
@@ -44,7 +46,7 @@ const ChatTab = (props: any) => {
             setMode(TabMode.FRIENDS);
           }}
         >
-          친구목록dfdf
+          친구목록
         </label>
         <label
           style={
