@@ -102,13 +102,12 @@
       padding: 0px;
 
       .chatList_friends {
-        height: 100%;
+        height: 99%;
         padding: 0px;
         border: $color3 solid 2.5px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 10px;
 
         div {
           color: $color9;
