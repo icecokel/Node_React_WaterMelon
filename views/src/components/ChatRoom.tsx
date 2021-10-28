@@ -13,6 +13,9 @@ const ChatRoom = (props: any) => {
       setMessage("");
     }
   };
+  if (!webSocket) {
+    return <div></div>;
+  }
   const sendMessage = (message: string) => {
     const params = { nickname: nickname, message: message };
     webSocket.send(JSON.stringify(params));
