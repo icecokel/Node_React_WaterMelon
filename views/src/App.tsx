@@ -5,7 +5,6 @@ import axios from "axios";
 
 import "./styles/style.scss";
 
-import Header from "./components/Header";
 import Login from "./components/Login";
 import Main from "./components/Main";
 
@@ -34,35 +33,11 @@ const callAPI = async (props: { url: string; method: string; data: any }) => {
 
   return result.data;
 };
-let webSocket: WebSocket;
+
 const App = () => {
   const [isLogined, setIsLogined] = useState<boolean>(false);
 
-  const [isOnReady, setIsOnReady] = useState<boolean>(false);
-
-  const webSocketInit = () => {
-    webSocket = new WebSocket("ws://localhost:1225");
-
-    if (!isOnReady) {
-      webSocket.onopen = (e) => {
-        console.info("Server Connected");
-        setIsOnReady(true);
-      };
-    }
-    webSocket.onclose = (e) => {
-      console.error("Re Try Server Connecting...");
-      webSocketInit();
-      setIsOnReady(false);
-    };
-    webSocket.onerror = (e) => {
-      console.error(`WebSocket Error : ${e}`);
-      setIsOnReady(false);
-    };
-  };
-
   useEffect(() => {
-    webSocketInit();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -71,11 +46,6 @@ const App = () => {
   return (
     <main>
       <Router>
-        <Header
-          setIsLogined={setIsLogined}
-          callAPI={callAPI}
-          webSocket={webSocket}
-        />
         <section>
           <article className="main">
             <Switch>
@@ -88,15 +58,22 @@ const App = () => {
                     isLogined={isLogined}
                     setIsLogined={setIsLogined}
                     callAPI={callAPI}
-                    isOnReady={isOnReady}
-                    webSocket={webSocket}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/login"
+                render={(props) => (
+                  <Login
+                    {...props}
+                    isLogined={isLogined}
+                    setIsLogined={setIsLogined}
+                    callAPI={callAPI}
                   />
                 )}
               />
             </Switch>
-            {!isLogined && (
-              <Login callAPI={callAPI} setIsLogined={setIsLogined} />
-            )}
           </article>
         </section>
       </Router>
