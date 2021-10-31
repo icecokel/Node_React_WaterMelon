@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import Logo from "./Logo";
 const Header = (props: any) => {
   const callAPI: Function = props.callAPI;
   const [nickname, setNickname] = useState<string>("");
+  const history = useHistory();
 
   useEffect(() => {
     getNickname();
@@ -23,6 +25,7 @@ const Header = (props: any) => {
     window.sessionStorage.clear();
     setNickname("");
     props.setIsLogined(res.isLogined);
+    history.push("/login");
   };
   return (
     <header className="header_box">
