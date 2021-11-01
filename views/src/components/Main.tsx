@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ChatRoom from "./ChatRoom";
 import ChatTab from "./ChatTab";
 import Header from "./Header";
-
+import { PagePath } from "../common/Enum";
 let webSocket: WebSocket;
 
 const Main = (props: any) => {
@@ -10,8 +10,11 @@ const Main = (props: any) => {
   const [isOnReady, setIsOnReady] = useState<boolean>(false);
 
   const webSocketInit = () => {
-    webSocket = new WebSocket("ws://localhost:1225");
+    const webSocketUrl = process.env.REACT_APP_BASEURL_WEBSOCKER;
 
+    if (webSocketUrl) {
+      webSocket = new WebSocket(webSocketUrl);
+    }
     if (!isOnReady) {
       webSocket.onopen = (e) => {
         console.info("Server Connected");
@@ -31,6 +34,7 @@ const Main = (props: any) => {
 
   useEffect(() => {
     !props.isLogined && loginCheck();
+
     webSocketInit();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -44,7 +48,7 @@ const Main = (props: any) => {
     props.setIsLogined(res.isLogined);
 
     if (!res.isLogined) {
-      props.history.push("/login");
+      props.history.push(PagePath.Login);
     }
   };
   return (

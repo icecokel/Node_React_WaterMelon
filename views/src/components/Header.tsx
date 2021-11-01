@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { PagePath } from "../common/Enum";
 import Logo from "./Logo";
 const Header = (props: any) => {
   const callAPI: Function = props.callAPI;
@@ -25,15 +26,16 @@ const Header = (props: any) => {
     window.sessionStorage.clear();
     setNickname("");
     props.setIsLogined(res.isLogined);
-    history.push("/login");
+    history.push(PagePath.Login);
   };
+
   return (
     <header className="header_box">
       <Logo gotoMain={true} />
       <div className="account_info_box">
         {nickname ? (
           <>
-            <span> {nickname}</span>
+            <span id="nickname"> {nickname}</span>
             <label onClick={onClickLogout}>로그아웃</label>
           </>
         ) : (
