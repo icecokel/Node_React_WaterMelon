@@ -77,7 +77,7 @@ controller.get("/getFriedList", (req, res) => {
       if (err) {
         console.log(err);
       }
-      let result = {} as any;
+      const result = {} as any;
       result["count"] = data.length;
       result["items"] = data;
       res.send(result);
