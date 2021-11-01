@@ -4,8 +4,7 @@ import watermelon from "../styles/images/watermelon01.jpg";
 import google from "../styles/images/google_icon.png";
 import kakao from "../styles/images/kakao_icon.png";
 import naver from "../styles/images/naver_icon.png";
-import userEvent from "@testing-library/user-event";
-
+import { PagePath } from "../common/Enum";
 const Login = (props: any) => {
   const callAPI: Function = props.callAPI;
 
@@ -17,7 +16,8 @@ const Login = (props: any) => {
 
   useEffect(() => {
     loginCheck();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.isLogined]);
 
   const onPressEnter = (e: any) => {
     if (e.key === "Enter") {
@@ -65,7 +65,7 @@ const Login = (props: any) => {
     } else {
       window.sessionStorage.setItem("nickname", res.nickname);
       props.setIsLogined(res.isLogined);
-      props.history.push("/");
+      props.history.push(PagePath.Main);
     }
   };
 
