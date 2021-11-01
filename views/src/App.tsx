@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
 
 import "./styles/style.scss";
+import { PagePath } from "./common/Enum";
 
 import Login from "./components/Login";
 import Main from "./components/Main";
@@ -51,7 +52,7 @@ const App = () => {
             <Switch>
               <Route
                 exact
-                path="/"
+                path={PagePath.Main}
                 render={(props) => (
                   <Main
                     {...props}
@@ -63,7 +64,7 @@ const App = () => {
               />
               <Route
                 exact
-                path="/login"
+                path={PagePath.Login}
                 render={(props) => (
                   <Login
                     {...props}
