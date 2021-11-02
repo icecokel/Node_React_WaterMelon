@@ -42,8 +42,6 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 로그인 페이지 분리
-  // 모달 -> 별도 페이지로
   return (
     <main>
       <Router>

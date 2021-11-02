@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-
-export enum TabMode {
-  FRIENDS = 0,
-  ROOM = 1,
-}
+import { TabMode } from "../common/Enum";
 
 const ChatTab = (props: any) => {
   const [mode, setMode] = useState<number>(TabMode.FRIENDS);
