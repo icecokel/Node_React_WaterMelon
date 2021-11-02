@@ -65,7 +65,7 @@ const Main = (props: any) => {
           isLogined={props.isLogined}
         />
         <ChatRoom
-          key="chatbox_1"
+          key="chatbox_2"
           webSocket={webSocket}
           isOnReady={props.isOnReady}
         />
