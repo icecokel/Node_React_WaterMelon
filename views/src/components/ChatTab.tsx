@@ -26,40 +26,22 @@ const ChatTab = (props: any) => {
     }
   };
 
-  // TODO 삼항식이 아닌, 모드에 따른 컴포넌트 변경 방식으로 변경
+  const changeMode = () => {
+    mode === TabMode.FRIENDS ? setMode(TabMode.ROOM) : setMode(TabMode.FRIENDS);
+  };
 
-  return (
-    <div className="chatList_box">
-      <div className="chatList_tab">
-        <label
-          style={
-            mode === TabMode.FRIENDS
-              ? { backgroundColor: "#f28585", color: "#FFFFFF" }
-              : {}
-          }
-          className="friends_lbl"
-          onClick={() => {
-            setMode(TabMode.FRIENDS);
-          }}
-        >
-          친구목록
-        </label>
-        <label
-          style={
-            mode === TabMode.ROOM
-              ? { backgroundColor: "#c2d991", color: "#FFFFFF" }
-              : {}
-          }
-          className="room_lbl"
-          onClick={() => {
-            setMode(TabMode.ROOM);
-          }}
-        >
-          대화방
-        </label>
-      </div>
-      <div className="chatList_contents">
-        {mode === TabMode.FRIENDS && (
+  if (mode === TabMode.FRIENDS) {
+    return (
+      <div className="chatList_box">
+        <div className="chatList_tab">
+          <label className="friends_lbl_clicked" onClick={changeMode}>
+            친구목록
+          </label>
+          <label className="room_lbl" onClick={changeMode}>
+            대화방
+          </label>
+        </div>
+        <div className="chatList_contents">
           <div className="chatList_friends">
             <div>
               친구{friendCount} 명
@@ -72,13 +54,26 @@ const ChatTab = (props: any) => {
                 })}
             </ul>
           </div>
-        )}
-        {mode === TabMode.ROOM && (
-          <div className="chatList_room">채팅방 목록</div>
-        )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="chatList_box">
+        <div className="chatList_tab">
+          <label className="friends_lbl" onClick={changeMode}>
+            친구목록
+          </label>
+          <label className="room_lbl_clicked" onClick={changeMode}>
+            대화방
+          </label>
+        </div>
+        <div className="chatList_contents">
+          <div className="chatList_room">채팅방 목록</div>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default ChatTab;
