@@ -85,6 +85,14 @@
           background-color: $color3;
           color: $colorWhite;
         }
+        &:active {
+          background-color: $color3;
+          color: $colorWhite;
+        }
+      }
+      .friends_lbl_clicked {
+        background-color: $color3;
+        color: $colorWhite;
       }
 
       .room_lbl {
@@ -94,6 +102,11 @@
           background-color: $color8;
           color: $colorWhite;
         }
+      }
+
+      .room_lbl_clicked {
+        background-color: $color8;
+        color: $colorWhite;
       }
     }
 
