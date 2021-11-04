@@ -5,14 +5,15 @@ const ChatTab = (props: any) => {
   const [mode, setMode] = useState<number>(TabMode.FRIENDS);
   const [friendList, setFriendList] = useState<Array<any>>();
   const [friendCount, setFriendCount] = useState<number>();
+  const [chatRommList, setChatRoomList] = useState<Array<any>>();
   const callAPI: Function = props.callAPI;
-  const isLogined = props.isLogined;
 
   useEffect(() => {
-    isLogined || getFriendsList();
+    !friendCount && getFriendsList();
+    !chatRommList && getChatRoomList();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [friendList]);
+  }, []);
 
   const getFriendsList = async () => {
     const res = await callAPI({
@@ -24,6 +25,11 @@ const ChatTab = (props: any) => {
       setFriendList(res.items);
       setFriendCount(res.count);
     }
+  };
+
+  const getChatRoomList = async () => {
+    // TODO 채팅방 목록 가져오기
+    setChatRoomList([]);
   };
 
   const changeMode = () => {
