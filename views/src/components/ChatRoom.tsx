@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatBubble from "./ChatBubble";
 
 const ChatRoom = (props: any) => {
@@ -31,16 +31,23 @@ const ChatRoom = (props: any) => {
     }
   };
 
+  const goToBottom = () => {
+    const chatBox = document.getElementById("chatBox");
+
+    // TODO 스크롤바가 맨아래로 자동으로 세팅 되게
+  };
+
   return (
     <div className="chat_box">
       채팅창
       <div className="chat_target_box">대상 닉네임</div>
-      <div className="chat_content_box">
+      <div className="chat_content_box" id="chatBox">
         <ul>
           {receivedMessages &&
             receivedMessages.map((item, idex) => {
               return (
                 <ChatBubble
+                  id={"cb_" + idex + 1}
                   key={idex}
                   nickname={item.nickname}
                   message={item.message}
