@@ -29,6 +29,7 @@ const ChatTab = (props: any) => {
 
   const getChatRoomList = async () => {
     // TODO 채팅방 목록 가져오기
+    // 웹소켓 연결 고려
     setChatRoomList([]);
   };
 
