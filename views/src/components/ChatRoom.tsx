@@ -7,15 +7,31 @@ const ChatRoom = (props: any) => {
   const webSocket: WebSocket = props.webSocket;
   const [receivedMessages, setReceivedMessages] = useState<Array<any>>([]);
 
+  useEffect(() => {
+    goToBottom();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [receivedMessages]);
+
+  const goToBottom = () => {
+    const lastLi = document.getElementById(
+      "cb_" + (receivedMessages.length - 1)
+    );
+    lastLi?.scrollIntoView();
+
+    // TODO 스크롤바가 맨아래로 자동으로 세팅 되게
+  };
+
   const onPressEnter = (e: any) => {
     if (e.key === "Enter") {
       sendMessage(message);
       setMessage("");
     }
   };
+
   if (!webSocket) {
     return <div></div>;
   }
+
   const sendMessage = (message: string) => {
     const params = { nickname: nickname, message: message };
     webSocket.send(JSON.stringify(params));
@@ -31,24 +47,20 @@ const ChatRoom = (props: any) => {
     }
   };
 
-  const goToBottom = () => {
-    const chatBox = document.getElementById("chatBox");
-
-    // TODO 스크롤바가 맨아래로 자동으로 세팅 되게
-  };
-
   return (
     <div className="chat_box">
       채팅창
       <div className="chat_target_box">대상 닉네임</div>
-      <div className="chat_content_box" id="chatBox">
+      <div className="chat_content_box" id="chat_content_box">
         <ul>
           {receivedMessages &&
-            receivedMessages.map((item, idex) => {
+            receivedMessages.map((item, index) => {
+              const lastIndex = receivedMessages.length - 1;
+
               return (
                 <ChatBubble
-                  id={"cb_" + idex + 1}
-                  key={idex}
+                  id={"cb_" + index}
+                  key={index}
                   nickname={item.nickname}
                   message={item.message}
                 />
